@@ -1,0 +1,11 @@
+<h2>Scales</h2>
+
+<p>{{ chosenScale().leadingKey }}</p>
+<p>{{ chosenScaleName() }}</p>
+<!-- <pre>
+  <code>
+    {{ chosenScale() | json }}
+  </code>
+</pre> -->
+<p>#{{ chosenScaleIndex() }}</p>
+<button (click)="nextScale()">Next scale</button>
