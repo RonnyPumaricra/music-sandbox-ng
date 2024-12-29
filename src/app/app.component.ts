@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ScalesPickerComponent } from "./components/scales-picker/scales-picker.component";
 import { ChordsPickerComponent } from "./components/chords-picker/chords-picker.component";
+import { PianoComponent } from "./components/piano/piano.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ScalesPickerComponent, ChordsPickerComponent],
+  imports: [RouterOutlet, ScalesPickerComponent, ChordsPickerComponent, PianoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

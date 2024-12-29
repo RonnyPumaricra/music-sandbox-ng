@@ -66,4 +66,13 @@ export class MusicService {
     "B"
   ];
 
+
+  isWhiteNote(noteIndex: number) {
+    return [0,2,4,5,7,9,11].some(i => i === noteIndex);
+  }
+
+  getNoteName(noteIndex: number) {
+    return this.chromaticNotes[noteIndex % this.chromaticNotes.length];
+  }
+
 }

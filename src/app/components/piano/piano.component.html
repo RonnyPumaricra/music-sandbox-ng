@@ -1,0 +1,18 @@
+
+<div class="piano">
+  @for (noteIndex of pianoRange(); track $index) {
+    @if (isWhiteNote(noteIndex)) {
+      <div class="white key">
+        <div class="note-name">
+          {{ musicService.getNoteName(noteIndex) }}
+        </div>
+      </div>
+    } @else {
+      <div class="black key"></div>
+    }
+    <!-- <div [class]="isWhiteNote(noteIndex) ? 'white key' : 'black key'">
+      
+    </div> -->
+    <!-- <button></button> -->
+  }
+</div>

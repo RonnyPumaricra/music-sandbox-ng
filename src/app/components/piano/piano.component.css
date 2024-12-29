@@ -1,0 +1,33 @@
+.piano {
+  display: flex;
+  height: 9rem;
+
+  isolation: isolate;
+}
+
+.white.key {
+  width: 3rem;
+  background: #F4F4F4;
+  border: 1px solid #1F1F1F;
+
+  position: relative;
+}
+
+.white.key .note-name {
+  position: absolute;
+  bottom: .5rem;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin: auto;
+}
+
+
+.black.key {
+  width: 1.5rem;
+  background: #1F1F1F;
+  height: 6rem;
+  align-self: flex-start;
+  margin-inline: -0.75rem;
+  z-index: 1;
+}
