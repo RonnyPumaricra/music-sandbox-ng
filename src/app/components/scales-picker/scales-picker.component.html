@@ -1,11 +1,19 @@
 <h2>Scales</h2>
 
-<p>{{ chosenScale().leadingKey }}</p>
+<p>
+  <strong>{{ scaleRoot }}</strong>
+</p>
+
+<!-- <p>{{ chosenScaleName() }}</p> -->
 <p>{{ chosenScaleName() }}</p>
-<!-- <pre>
-  <code>
-    {{ chosenScale() | json }}
-  </code>
-</pre> -->
-<p>#{{ chosenScaleIndex() }}</p>
+
+
+<!-- <p>#{{ chosenScaleIndex() }}</p> -->
+<button (click)="prevScale()">Prev scale</button>
 <button (click)="nextScale()">Next scale</button>
+
+<p>
+  Mode: <strong>{{ chosenModeName() }}</strong>
+</p>
+<button (click)="prevMode()">Prev mode</button>
+<button (click)="nextMode()">Next mode</button>

@@ -15,14 +15,15 @@ export class ScalesPickerComponent {
   scalesService = inject(ScalesService);
 
   chosenScale = this.scalesService.chosenScale;
-  // chosenScale = computed(() => this.scalesService.chosenScale());
   chosenScaleIndex = this.scalesService.chosenScaleIndex;
   chosenScaleName = computed(() => this.chosenScale().leadingKey ?? this.chosenScale().modes[this.scalesService.chosenModeIndex()]);
+  chosenModeName = this.scalesService.chosenModeName;
+  scaleRoot = this.scalesService.rootNote();
 
-  nextScale() {
-    this.scalesService.chosenScaleIndex.update(i => {
-      const length = this.scalesService.scales.length;
-      return (i + 1 + length) % length;
-    })
-  }
+  nextScale = () => this.scalesService.updateScale(1);
+  prevScale = () => this.scalesService.updateScale(-1);
+
+  nextMode = () => this.scalesService.updateMode(1);
+  prevMode = () => this.scalesService.updateMode(-1);
+
 }

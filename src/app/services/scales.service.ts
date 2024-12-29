@@ -1,60 +1,41 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { MusicService } from './music.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScalesService {
+  musicService = inject(MusicService);
 
-  public chosenScaleIndex = signal(0);
-  public chosenModeIndex = signal(0);
+  scales = this.musicService.scales;
+  chromaticNotes = this.musicService.chromaticNotes;
 
-  scales = [
-    {
-      leadingKey: "Diatonic Scale",
-      distribution: [0, 2, 4, 5, 7, 9, 11],
-      modes: [
-        "Ionian (Major)",
-        "Dorian",
-        "Phrygian", 
-        "Lydian",
-        "Mixolydian",
-        "Aeolian (Minor)",
-        "Locrian"
-      ]
-    },
-    {
-  
-      distribution: [0, 2, 3, 5, 7, 8, 11],
-      modes: [
-        "Harmonic Minor",
-        null,
-        "Augmented Major",
-        null,
-        "Phrygian Dominant",
-        null,
-        null
-      ]
-    },
-    {
-      distribution: [0, 2, 4, 7, 9],
-      modes: [
-        "Major Pentatonic",
-        null,
-        null,
-        null,
-        "Minor Pentatonic",
-      ]
-    },
-    {
-      // leadingKey: "Blues Minor",
-      distribution: [0, 3, 5, 6, 7, 10],
-      modes: [
-        "Blues Minor",
-        "Blues Major"
-      ]
-    },
-  ];
+  chosenScaleIndex = signal(0);
+  chosenModeIndex = signal(0);
+  rootNoteIndex = signal(0);
+
+
 
   chosenScale = computed(() => this.scales[this.chosenScaleIndex()]);
   chosenModeName = computed(() => this.chosenScale().modes[this.chosenModeIndex()]);
+  rootNote = computed(() => this.chromaticNotes[this.rootNoteIndex()]);
+  
+
+  updateScale(variation: number) {
+    this.chosenScaleIndex.update(i => {
+      const length = this.scales.length;
+      return (i + variation + length) % length;
+    });
+  }
+
+  updateMode(variation: number) {
+    this.chosenModeIndex.update(i => {
+      const length = this.chosenScale().modes.length;
+      return (i + variation + length) % length;
+    });
+  }
+
+  
+
+
 }
