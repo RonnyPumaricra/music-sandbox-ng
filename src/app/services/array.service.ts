@@ -15,4 +15,15 @@ export class ArrayService {
     }
     return output;
   };
+
+  indexInRange(value: number, range: any[] | number) {
+    let rangeSize = typeof range == "number" ? range : range.length;
+    
+    if (value >= 0) return value % rangeSize;
+    else return (value % rangeSize) + rangeSize;
+  }
+
+  valueInRange<T>(index: number, list: T[]) {
+    return list[this.indexInRange(index, list)];
+  }
 }
