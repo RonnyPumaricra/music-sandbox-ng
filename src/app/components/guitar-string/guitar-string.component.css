@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  height: 2.5rem;
+  margin-block: -1.25rem;
+  justify-content: space-between;
+}
+
+.note-wrapper {
+  width: var(--fret-size);
+
+  display: grid;
+  place-items: center;
+}
+
+.note {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #ccc;
+  border-radius: 50%;
+}
+.note.highlighted {
+  background: #37C343;
+}

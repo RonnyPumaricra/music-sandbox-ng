@@ -1,0 +1,7 @@
+@for (i of arrayService.range(0, 12); track $index) {
+  <div class="note-wrapper">
+    <div class="note" [class.highlighted]="i == 2">
+      {{ i }}
+    </div>
+  </div>
+}

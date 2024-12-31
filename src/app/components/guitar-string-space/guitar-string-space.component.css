@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  height: 2.5rem;
+}
+:host(:not(:last-of-type)) {
+  border-bottom: 1px solid black;
+}
+
+.fret-space {
+  width: var(--fret-size);
+  box-sizing: content-box;
+}
+
+.fret-space:not(:last-of-type) {
+  border-right: 1px solid black;
+}
