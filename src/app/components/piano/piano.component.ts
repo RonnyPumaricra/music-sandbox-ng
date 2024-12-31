@@ -1,7 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { ArrayService } from '../../services/array.service';
-import { range } from 'rxjs';
 import { ScalesService } from '../../services/scales.service';
 
 @Component({
@@ -18,7 +17,17 @@ export class PianoComponent {
   scalesService = inject(ScalesService);
 
   pianoRootNote = this.scalesService.rootNoteIndex;
+  highlightedNotes = this.scalesService.highlightedNotes;
 
-  pianoRange = computed(() => this.arrayService.range(this.pianoRootNote(), this.pianoRootNote() + 12));
-  isWhiteNote = this.musicService.isWhiteNote;
+  // pianoRange = computed(() => this.arrayService.range(
+  //   this.pianoRootNote() - this.scalesService.chosenModeIndex() - 4,
+  //   this.pianoRootNote() - this.scalesService.chosenModeIndex() + 12 + 4
+  // ));
+  pianoRange = computed(() => this.arrayService.range(
+    this.pianoRootNote() - 4,
+    this.pianoRootNote() + 12 + 4
+  ));
+
+
+  
 }

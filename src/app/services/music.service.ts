@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { ArrayService } from './array.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MusicService {
+  arrayService = inject(ArrayService);
   scales = [
     {
       leadingKey: "Diatonic Scale",
@@ -68,11 +70,17 @@ export class MusicService {
 
 
   isWhiteNote(noteIndex: number) {
-    return [0,2,4,5,7,9,11].some(i => i === noteIndex);
+    // return this.arrayService.valueInRange(noteIndex, [0,2,4,5,7,9,11]);
+    let indexInRange = this.arrayService.indexInRange(noteIndex, 12);
+    return [0,2,4,5,7,9,11].some(i => i == indexInRange);
+    // return [0,2,4,5,7,9,11].some(i => {
+    //   // if (noteIndex >= 0) return i == noteIndex % 12
+    //   // else return i == (((noteIndex * -1) % 12) * -1 + 12) % 12;
+    // });
   }
 
   getNoteName(noteIndex: number) {
-    return this.chromaticNotes[noteIndex % this.chromaticNotes.length];
+    return this.arrayService.valueInRange(noteIndex, this.chromaticNotes);
   }
 
 }

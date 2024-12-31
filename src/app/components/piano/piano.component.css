@@ -22,12 +22,21 @@
   margin: auto;
 }
 
+.white.key.highlighted {
+  background: #B2FFB6;
+}
+
 
 .black.key {
   width: 1.5rem;
   background: #1F1F1F;
+  /* border: 2px solid #1F1F1F; */
   height: 6rem;
   align-self: flex-start;
   margin-inline: -0.75rem;
   z-index: 1;
+}
+
+.black.key.highlighted {
+  background: #37C343;
 }

@@ -18,7 +18,7 @@ export class ScalesPickerComponent {
   chosenScaleIndex = this.scalesService.chosenScaleIndex;
   chosenScaleName = computed(() => this.chosenScale().leadingKey ?? this.chosenScale().modes[this.scalesService.chosenModeIndex()]);
   chosenModeName = this.scalesService.chosenModeName;
-  scaleRoot = this.scalesService.rootNote();
+  scaleRoot = this.scalesService.rootNoteName;
 
   nextScale = () => this.scalesService.updateScale(1);
   prevScale = () => this.scalesService.updateScale(-1);
