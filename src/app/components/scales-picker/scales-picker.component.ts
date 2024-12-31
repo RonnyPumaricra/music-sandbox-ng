@@ -6,7 +6,7 @@ import { JsonPipe } from '@angular/common';
   selector: 'app-scales-picker',
   standalone: true,
   imports: [
-    JsonPipe,
+    // JsonPipe,
   ],
   templateUrl: './scales-picker.component.html',
   styleUrl: './scales-picker.component.css'

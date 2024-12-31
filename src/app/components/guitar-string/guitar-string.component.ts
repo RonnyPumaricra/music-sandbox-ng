@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { ArrayService } from '../../services/array.service';
+import { MusicService } from '../../services/music.service';
+import { ScalesService } from '../../services/scales.service';
 
 @Component({
   selector: 'app-guitar-string',
@@ -10,4 +12,9 @@ import { ArrayService } from '../../services/array.service';
 })
 export class GuitarStringComponent {
   arrayService = inject(ArrayService);
+  musicService = inject(MusicService);
+  scalesService = inject(ScalesService);
+  
+  startingNoteIndex = input(0);
+  
 }

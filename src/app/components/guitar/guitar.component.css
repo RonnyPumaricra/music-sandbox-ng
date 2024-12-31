@@ -3,3 +3,8 @@
   --fret-size: 4.5rem;
   width: min-content;
 }
+
+:host {
+  display: block;
+  padding-left: 4rem;
+}

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { ArrayService } from '../../services/array.service';
 
 @Component({
@@ -10,4 +10,20 @@ import { ArrayService } from '../../services/array.service';
 })
 export class GuitarStringSpaceComponent {
   arrayService = inject(ArrayService);
+
+  row = input.required<number>();
+  
+  decoratives = [
+    [2, 2],
+    [2, 4],
+    [2, 6],
+    [2, 8],
+    [1, 11],
+    [3, 11],
+  ]
+
+  isDecorative(index: number) {
+    return this.decoratives.some(coord => coord[0] == this.row() && coord[1] == index);
+  }
+
 }

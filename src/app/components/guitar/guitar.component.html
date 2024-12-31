@@ -1,7 +1,15 @@
 
 
 <div class="wrapper">
-  <app-guitar-string></app-guitar-string>
+
+  @for (tuning of renderList(); track $index) {
+    <app-guitar-string [startingNoteIndex]="tuning"></app-guitar-string>
+    @if ($index != renderList().length - 1) {
+      <app-guitar-string-space [row]="$index"></app-guitar-string-space>
+    }
+  }
+
+  <!-- <app-guitar-string [startingNoteIndex]="5"></app-guitar-string>
   <app-guitar-string-space></app-guitar-string-space>
   <app-guitar-string></app-guitar-string>
   <app-guitar-string-space></app-guitar-string-space>
@@ -11,5 +19,5 @@
   <app-guitar-string-space></app-guitar-string-space>
   <app-guitar-string></app-guitar-string>
   <app-guitar-string-space></app-guitar-string-space>
-  <app-guitar-string></app-guitar-string>
+  <app-guitar-string></app-guitar-string> -->
 </div>

@@ -9,8 +9,17 @@
 .fret-space {
   width: var(--fret-size);
   box-sizing: content-box;
+  display: grid;
+  place-content: center;
 }
 
 .fret-space:not(:last-of-type) {
   border-right: 1px solid black;
+}
+
+.fret-space.deco .deco {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #aaa;
 }

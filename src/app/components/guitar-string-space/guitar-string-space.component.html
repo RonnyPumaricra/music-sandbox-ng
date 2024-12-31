@@ -1,3 +1,6 @@
 @for (i of arrayService.range(0, 12); track $index) {
-  <div class="fret-space"></div>
+  <!-- <div class="fret-space" [class.deco]="decoratives.some(coord => coord[0] == row() && coord[1] == $index)"></div> -->
+  <div class="fret-space" [class.deco]="isDecorative($index)">
+    <div class="deco"></div>
+  </div>
 }
