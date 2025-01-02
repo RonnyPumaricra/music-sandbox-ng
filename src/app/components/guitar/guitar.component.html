@@ -3,7 +3,7 @@
 <div class="wrapper">
 
   @for (tuning of renderList(); track $index) {
-    <app-guitar-string [startingNoteIndex]="tuning"></app-guitar-string>
+    <app-guitar-string [startingNoteIndex]="tuning.guitarNote" [stringIndex]="$index"></app-guitar-string>
     @if ($index != renderList().length - 1) {
       <app-guitar-string-space [row]="$index"></app-guitar-string-space>
     }

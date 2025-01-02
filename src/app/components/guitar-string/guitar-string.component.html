@@ -1,7 +1,12 @@
 @for (i of arrayService.range(startingNoteIndex(), startingNoteIndex() + 13); track $index) {
   <div class="note-wrapper">
-    <div class="note" [class.highlighted]="scalesService.isNoteHighlighted(i % 12)">
-      {{ i % 12 }}
+    
+    <div
+      class="note"
+      [class.highlighted]="guitarService.isNoteHighlighted(i % 12)"
+      (click)="guitarService.set3PerString(stringIndex(), i)"
+    >
+      {{ i }}
       <!-- {{ musicService.getNoteName(i) }} -->
     </div>
   </div>

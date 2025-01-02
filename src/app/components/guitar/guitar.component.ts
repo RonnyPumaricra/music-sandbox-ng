@@ -14,5 +14,43 @@ import { ScalesService } from '../../services/scales.service';
 export class GuitarComponent {
   guitarService = inject(GuitarService);
 
-  renderList = computed(() => this.guitarService.tuningNotes().reverse());
+  tuningNotes = computed(() => this.guitarService.tuningNotes().reverse());
+
+  renderList = computed(() => {
+
+    const tuningNotes = this.guitarService.tuningNotes();
+
+    const renderList: {pitchlessNote: number, guitarNote: number}[] = [];
+    /* Turn [6, 11, 3] to [6, 11, 14] */
+    for (let i = 0; i < tuningNotes.length; i++) {
+      let note = tuningNotes[i];
+      if (i == 0) {
+        renderList.push({pitchlessNote: note, guitarNote: note});
+        continue;
+      };
+      let prev = renderList[i - 1];
+      let curr = {pitchlessNote: note, guitarNote: 0};
+      while (prev.guitarNote > note) {
+        note += 12;
+      }
+      curr.guitarNote = note;
+
+      renderList.push(curr);
+      // console.table(renderList);
+      
+      
+    }
+    // tuningNotes.map((note, index) => {
+    //   if (index == 0) return note;
+    //   if (tuningNotes)
+    // })
+    
+
+
+    return renderList.reverse();
+  });
+
+
+  // highlightedNotes = ;
+
 }

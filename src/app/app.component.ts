@@ -9,9 +9,9 @@ import { GuitarComponent } from "./components/guitar/guitar.component";
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
+    // RouterOutlet,
     ScalesPickerComponent,
-    ChordsPickerComponent,
+    // ChordsPickerComponent,
     PianoComponent,
     GuitarComponent
   ],
