@@ -29,7 +29,6 @@ export class GuitarService {
     let modeRootNote = this.scalesService.currentDistribution()[this.scalesService.chosenModeIndex()];
     let moddedDistribution = this.scalesService.currentDistribution().map(note => {
       return (note - modeRootNote + 12) % 12;
-      // return noteInRange + this.rootNoteIndex();
     });
     moddedDistribution.push(12);
     return moddedDistribution.map(el => (this.scalesService.rootNoteIndex() + el) % 12);
@@ -46,24 +45,19 @@ export class GuitarService {
     let stringNotes = highlighted3PerString.at(6 - stringIndex - 1);
     if (stringNotes == null) return false;
     else return stringNotes.some(highlightedNote => highlightedNote == guitarNote);
-    // return this.highlightedNotes().some(i => i == guitarNote);
   }
 
+  start3PerString = signal<{string: number, guitarNote: number} | null>(null);
 
-  highlighted3PerString = signal<null | (number[] | null)[]>(null);
+  highlighted3PerString = computed<Array<number[] | null> | null>(() => {
+    let start3PerString = this.start3PerString();
+    if (start3PerString == null) return null;
+    
+    let startingString = start3PerString.string;
+    let currentStringPitch = start3PerString.guitarNote;
+    let threePerString: Array<number[] | null> = [];
 
-  set3PerString(stringIndex: number, pitch: number) {
-
-    let startingString = this.tuningNotes().length - stringIndex - 1;
-    // console.table({startingString})
-    // for (let note of this.tuningNotes()) {
-
-    // }
-    let threePerString: null | (number[] | null)[] = [];
-    let currentStringPitch: number = pitch;
     this.tuningNotes().forEach((note, index) => {
-      // console.log(note);
-      // console.log(note);
       
       if (index < startingString) threePerString.push(null);
       else {
@@ -77,15 +71,28 @@ export class GuitarService {
           currentPitch++;
         }
         currentStringPitch = currentPitch;
-        // console.log(threeNotes);
         threePerString.push(threeNotes);
       }
     })
 
-
     console.table(threePerString);
-    this.highlighted3PerString.set(threePerString);
-    
+    return threePerString;
+  });
+
+  set3PerString(stringIndex: number, guitarNote: number) {
+    let start3PerString = this.start3PerString();
+
+    stringIndex = 6 - stringIndex - 1;
+
+    if (start3PerString == null || start3PerString.guitarNote != guitarNote || start3PerString.string != stringIndex) {
+      this.start3PerString.set({
+        string: stringIndex,
+        guitarNote: guitarNote,
+      })
+    }
+    else {
+      this.start3PerString.set(null);
+    }
   }
 
 }
