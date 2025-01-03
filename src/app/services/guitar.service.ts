@@ -35,8 +35,18 @@ export class GuitarService {
     return moddedDistribution.map(el => (this.scalesService.rootNoteIndex() + el) % 12);
   });
   
-  isNoteHighlighted(noteIndex: number) {
-    return this.highlightedNotes().some(i => i == noteIndex);
+  isNoteFromScale(guitarNote: number) {
+    return this.highlightedNotes().some(i => i == guitarNote % 12);
+  }
+
+  isNoteHighlighted(guitarNote: number, stringIndex: number) {
+    let highlighted3PerString = this.highlighted3PerString();
+    if (highlighted3PerString == null) return this.isNoteFromScale(guitarNote);
+
+    let stringNotes = highlighted3PerString.at(6 - stringIndex - 1);
+    if (stringNotes == null) return false;
+    else return stringNotes.some(highlightedNote => highlightedNote == guitarNote);
+    // return this.highlightedNotes().some(i => i == guitarNote);
   }
 
 
@@ -63,7 +73,7 @@ export class GuitarService {
         // let i = 0;
         let currentPitch = currentStringPitch;
         while (threeNotes.length < 3) {
-          if (this.isNoteHighlighted(currentPitch % 12)) threeNotes.push(currentPitch);
+          if (this.isNoteFromScale(currentPitch)) threeNotes.push(currentPitch);
           currentPitch++;
         }
         currentStringPitch = currentPitch;
@@ -74,7 +84,7 @@ export class GuitarService {
 
 
     console.table(threePerString);
-
+    this.highlighted3PerString.set(threePerString);
     
   }
 
