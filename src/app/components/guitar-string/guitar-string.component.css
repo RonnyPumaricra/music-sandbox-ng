@@ -18,12 +18,11 @@
   width: 1.5rem;
   height: 1.5rem;
   background: #ccc;
-  /* pointer-events: none; */
-  /* opacity: 0; */
   border-radius: 50%;
 }
 .note:not(.highlighted) {
   pointer-events: none;
+  opacity: 0;
 }
 
 .note.highlighted {

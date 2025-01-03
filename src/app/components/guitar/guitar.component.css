@@ -7,4 +7,10 @@
 :host {
   display: block;
   padding-left: 4rem;
+  isolation: isolate;
+}
+
+app-guitar-string {
+  z-index: 1;
+  isolation: isolate;
 }
