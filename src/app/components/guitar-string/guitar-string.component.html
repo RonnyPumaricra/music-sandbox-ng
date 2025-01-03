@@ -4,6 +4,7 @@
     <div
       class="note"
       [class.highlighted]="guitarService.isNoteHighlighted(i, stringIndex())"
+      [class.note-in-key]="guitarService.isNoteFromScale(i)"
       (click)="guitarService.set3PerString(stringIndex(), i)"
     >
       <!-- {{ i }} -->

@@ -17,15 +17,17 @@
 .note {
   width: 1.5rem;
   height: 1.5rem;
-  background: #ccc;
   border-radius: 50%;
 }
-.note:not(.highlighted) {
+.note:not(.note-in-key) {
   pointer-events: none;
   opacity: 0;
 }
 
+.note.note-in-key {
+  background: #ccc;
+}
+
 .note.highlighted {
-  opacity: 1;
   background: #37C343;
 }
