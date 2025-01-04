@@ -11,7 +11,7 @@ import { GuitarComponent } from "./components/guitar/guitar.component";
   imports: [
     // RouterOutlet,
     ScalesPickerComponent,
-    // ChordsPickerComponent,
+    ChordsPickerComponent,
     PianoComponent,
     GuitarComponent
   ],

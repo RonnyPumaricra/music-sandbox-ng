@@ -68,6 +68,29 @@ export class MusicService {
     "B"
   ];
 
+  chords: Chord[] = [
+    {
+      name: "Major",
+      distribution: [0, 4, 7],
+      abbr: root => root,
+    },
+    {
+      name: "Minor",
+      distribution: [0, 3, 7],
+      abbr: root => root + "m",
+    },
+    {
+      name: "Diminished",
+      distribution: [0, 3, 6],
+      abbr: root => root +  "dim",
+    },
+    {
+      name: "Augmented",
+      distribution: [0, 4, 8],
+      abbr: root => root +  "+",
+    },
+  ]
+
 
   isWhiteNote(noteIndex: number) {
     // return this.arrayService.valueInRange(noteIndex, [0,2,4,5,7,9,11]);
@@ -83,4 +106,11 @@ export class MusicService {
     return this.arrayService.valueInRange(noteIndex, this.chromaticNotes);
   }
 
+}
+
+
+interface Chord {
+  name: string,
+  distribution: Array<number>,
+  abbr: (root: string) => string,
 }
