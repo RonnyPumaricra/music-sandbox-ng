@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { ArrayService } from './array.service';
 
 @Injectable({
@@ -67,6 +67,8 @@ export class MusicService {
     "A#/Bb",
     "B"
   ];
+
+  activePicker = signal(0);
 
   chords: Chord[] = [
     {

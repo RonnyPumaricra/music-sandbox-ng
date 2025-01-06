@@ -11,7 +11,7 @@ export class PianoService {
   scalesService = inject(ScalesService);
   
    /* Turn [0, 2, 6] to [10, 0, 4] first */
-  highlightedNotes = computed(() => {
+  highlightedScaleNotes = computed(() => {
     let modeRootNote = this.scalesService.currentDistribution()[this.scalesService.chosenModeIndex()];
     // console.log(this.scalesService.chosenModeIndex());
     // console.log(modeRootNote);
@@ -32,4 +32,7 @@ export class PianoService {
     return this.highlightedNotes().some(i => i == noteIndex);
   }
   
+
+  highlightedNotes = computed(() => this.musicService.activePicker() == 0 ? this.highlightedScaleNotes() : []);
+
 }

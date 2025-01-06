@@ -3,6 +3,7 @@ import { GuitarStringSpaceComponent } from "../guitar-string-space/guitar-string
 import { GuitarStringComponent } from "../guitar-string/guitar-string.component";
 import { GuitarService } from '../../services/guitar.service';
 import { ScalesService } from '../../services/scales.service';
+import { MusicService } from '../../services/music.service';
 
 @Component({
   selector: 'app-guitar',
@@ -12,11 +13,12 @@ import { ScalesService } from '../../services/scales.service';
   styleUrl: './guitar.component.css'
 })
 export class GuitarComponent {
+  musicService = inject(MusicService);
   guitarService = inject(GuitarService);
 
   tuningNotes = computed(() => this.guitarService.tuningNotes().reverse());
 
-  renderList = computed(() => {
+  renderListForScales = computed(() => {
 
     const tuningNotes = this.guitarService.tuningNotes();
 
@@ -49,6 +51,8 @@ export class GuitarComponent {
 
     return renderList.reverse();
   });
+
+  renderList = computed(() => this.musicService.activePicker() == 0 ? this.renderListForScales() : []);
 
 
   // highlightedNotes = ;
