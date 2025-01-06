@@ -16,7 +16,7 @@ export class ChordsPickerComponent {
   chordsService = inject(ChordsService);
 
   rootNoteIndex = this.chordsService.rootNoteIndex;
-  chosenChord = this.chordsService.currentChord;
+  chosenChord = this.chordsService.chosenChord;
 
   chosenChordName = computed(() => this.chosenChord());
 

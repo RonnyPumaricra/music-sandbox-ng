@@ -1,6 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { MusicService } from './music.service';
 import { ScalesService } from './scales.service';
+import { ChordsService } from './chords.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class PianoService {
 
   musicService = inject(MusicService);
   scalesService = inject(ScalesService);
+  chordsService = inject(ChordsService);
   
    /* Turn [0, 2, 6] to [10, 0, 4] first */
   highlightedScaleNotes = computed(() => {
@@ -28,11 +30,16 @@ export class PianoService {
     return highlighted;
   });
   
+  highlightedChordNotes = computed(() => {
+    return this.chordsService.chosenChord().distribution.map(note => note + this.chordsService.rootNoteIndex())
+  })
+
+
   isNoteHighlighted(noteIndex: number) {
     return this.highlightedNotes().some(i => i == noteIndex);
   }
   
 
-  highlightedNotes = computed(() => this.musicService.activePicker() == 0 ? this.highlightedScaleNotes() : []);
+  highlightedNotes = computed(() => this.musicService.activePicker() == 0 ? this.highlightedScaleNotes() : this.highlightedChordNotes());
 
 }
