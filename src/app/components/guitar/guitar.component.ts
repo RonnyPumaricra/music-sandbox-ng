@@ -52,7 +52,8 @@ export class GuitarComponent {
     return renderList.reverse();
   });
 
-  renderList = computed(() => this.musicService.activePicker() == 0 ? this.renderListForScales() : []);
+  renderList = computed(() => this.renderListForScales());
+  // renderList = computed(() => this.musicService.activePicker() == 0 ? this.renderListForScales() : []);
 
 
   // highlightedNotes = ;

@@ -1,12 +1,16 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { ScalesService } from './scales.service';
+import { ChordsService } from './chords.service';
+import { MusicService } from './music.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuitarService {
 
+  musicService = inject(MusicService);
   scalesService = inject(ScalesService);
+  chordsService = inject(ChordsService);
 
   guitarTunings = [
     {
@@ -25,7 +29,11 @@ export class GuitarService {
 
   tuningNotes = computed(() => this.tuning().distribution.map(el => (el + this.guitarRoot()) % 12));
 
-  highlightedNotes = computed(() => {
+  highlightedChordNotes = computed(() => {
+    return this.chordsService.chosenChord().distribution.map(note => note + this.chordsService.rootNoteIndex())
+  })
+
+  highlightedScaleNotes = computed(() => {
     let modeRootNote = this.scalesService.currentDistribution()[this.scalesService.chosenModeIndex()];
     let moddedDistribution = this.scalesService.currentDistribution().map(note => {
       return (note - modeRootNote + 12) % 12;
@@ -34,6 +42,8 @@ export class GuitarService {
     return moddedDistribution.map(el => (this.scalesService.rootNoteIndex() + el) % 12);
   });
   
+  highlightedNotes = computed(() => this.musicService.activePicker() == 0 ? this.highlightedScaleNotes() : this.highlightedChordNotes());
+
   isNoteFromScale(guitarNote: number) {
     return this.highlightedNotes().some(i => i == guitarNote % 12);
   }
