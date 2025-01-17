@@ -1,0 +1,55 @@
+header {
+  height: 22.5rem;
+  padding-inline: 3rem;
+
+  display: flex;
+  
+  background: red;
+}
+
+nav {
+  background: green;
+  width: 20rem;
+  position: relative;
+}
+
+nav span.top {
+  --gap-space: -4.5rem;
+  --gap-space: -20px;
+  
+}
+nav span.bottom {
+  --gap-space: 4.5rem;
+  --gap-space: 20px;
+}
+
+nav span {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  height: 3rem;
+  
+  font-size: 3rem;
+  font-family: var(--serif);
+  line-height: 1;
+
+  
+  /* translate: 0 calc(var(--y-pos) + var(--gap-space)); */
+  /* 3.5 = 3 font-size + .5 gap */
+  transform: translateY(calc(var(--y-pos) * 3.5rem + var(--gap-space)));
+}
+
+
+
+nav span.active {
+  background: yellow;
+  inset: 0;
+  margin: auto;
+  height: 4rem;
+  width: fit-content;
+  
+  font-size: 4rem;
+  font-family: var(--serif);
+  line-height: 1;
+}

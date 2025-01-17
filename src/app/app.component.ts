@@ -5,12 +5,14 @@ import { ChordsPickerComponent } from "./components/chords-picker/chords-picker.
 import { PianoComponent } from "./components/piano/piano.component";
 import { GuitarComponent } from "./components/guitar/guitar.component";
 import { MusicService } from './services/music.service';
+import { PickerWrapperComponent } from './components/picker-wrapper/picker-wrapper.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     // RouterOutlet,
+    PickerWrapperComponent,
     ScalesPickerComponent,
     ChordsPickerComponent,
     PianoComponent,
