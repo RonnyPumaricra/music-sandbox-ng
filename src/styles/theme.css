@@ -1,0 +1,14 @@
+:root {
+  --mono-100: #121212;
+  --mono-200: #171717;
+  --mono-300: #212121;
+  
+  --mono-500: #84828F;
+  --mono-800: #A8A8A8;
+  --mono-900: #D9D9D9;
+  
+  --primary-100: #0A0B0A;
+  --primary-400: #1F9329;
+  
+  --serif: "Overpass", serif;
+}
