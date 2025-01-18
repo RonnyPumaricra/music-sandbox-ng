@@ -4,11 +4,11 @@ header {
 
   display: flex;
   
-  background: red;
+  /* background: red; */
 }
 
 nav {
-  background: green;
+  /* background: green; */
   width: 20rem;
   position: relative;
 }
@@ -28,28 +28,27 @@ nav span {
   inset: 0;
   margin: auto;
   width: fit-content;
-  height: 3rem;
+  height: 4rem;
   
-  font-size: 3rem;
+  font-weight: 500;
+  font-size: 4rem;
   font-family: var(--serif);
   line-height: 1;
+  color: var(--mono-500);
 
   
   /* translate: 0 calc(var(--y-pos) + var(--gap-space)); */
-  /* 3.5 = 3 font-size + .5 gap */
-  transform: translateY(calc(var(--y-pos) * 3.5rem + var(--gap-space)));
+  translate: 0 calc(var(--y-pos) * 3.5rem + var(--gap-space));
+  scale: .75;
+
+
+  transition: translate .2s, scale .2s, color .2s;
 }
 
 
 
 nav span.active {
-  background: yellow;
-  inset: 0;
-  margin: auto;
-  height: 4rem;
-  width: fit-content;
-  
-  font-size: 4rem;
-  font-family: var(--serif);
-  line-height: 1;
+  scale: 1;
+  font-weight: 700;
+  color: white;
 }
