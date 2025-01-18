@@ -54,4 +54,13 @@ export class ScalesService {
   }
 
 
+
+  getRootNoteName(rootNoteIndex: number) {
+    return this.musicService.getNoteName(rootNoteIndex);
+  }
+
+  getModeName(scaleIndex: number, modeIndex: number) {
+    return this.musicService.scales[scaleIndex].modes[modeIndex];
+  }
+
 }

@@ -1,4 +1,25 @@
-<h2>Scales</h2>
+<nav class="stored-scales">
+  @for (key of storedKeys(); track key) {
+    <div
+      [class.stored-key]="true"
+      [class.active]="$index == activeKeyIndex()"
+      (click)="storeKeyClick($index)"
+    >
+      <span class="root-note">
+        {{ scalesService.getRootNoteName(key.rootNoteIndex) }}
+      </span>
+      {{ scalesService.getModeName(key.scaleIndex, key.modeIndex) }}
+      <app-three-dots></app-three-dots>
+    </div>
+  }
+  <div
+    class="add-key"
+    (click)="addKey(0, 0, 0)"
+  >
+    <app-plus></app-plus>
+    Add key
+  </div>
+</nav>
 
 <p>
   <strong>{{ scaleRoot() }}</strong>
