@@ -10,6 +10,9 @@
       </span>
       {{ scalesService.getModeName(key.scaleIndex, key.modeIndex) }}
       <app-three-dots></app-three-dots>
+
+      <app-cross class="delete" (click)="deleteKey($index);$event.stopPropagation()"></app-cross>
+      <!-- <app-pen-outline class="edit"></app-pen-outline> -->
     </div>
   }
   <div
