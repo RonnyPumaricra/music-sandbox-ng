@@ -24,20 +24,36 @@
   </div>
 </nav>
 
-<p>
-  <strong>{{ scaleRoot() }}</strong>
-</p>
+<div class="key-editor">
+  <div class="left">
+    <h3>Root note</h3>
+    <span class="current-root-note">
+      C
+    </span>
+    <span class="pick-root">Pick</span>
+  </div>
+  <div class="right">
+    <div class="dropdown-wrapper">
+      <h3>Scale</h3>
+      <select>
+        <option value="1">a very large opt</option>
+        <option value="2">b</option>
+      </select>
 
-<!-- <p>{{ chosenScaleName() }}</p> -->
-<p>{{ chosenScaleName() }}</p>
+      <div class="dropdown-info">3 extra notes</div>
+    </div>
+    <div class="dropdown-wrapper">
+      <h3>Mode</h3>
+      <select>
+        <option value="1">b</option>
+        <option value="2">c</option>
+      </select>
+      <div class="dropdown-info">2 modded notes</div>
+    </div>
 
-
-<!-- <p>#{{ chosenScaleIndex() }}</p> -->
-<button (click)="prevScale()">Prev scale</button>
-<button (click)="nextScale()">Next scale</button>
-
-<p>
-  Mode: <strong>{{ chosenModeName() }}</strong>
-</p>
-<button (click)="prevMode()">Prev mode</button>
-<button (click)="nextMode()">Next mode</button>
+    
+  </div>
+  <div class="bottom">
+    <button class="save-key">Apply</button>
+  </div>
+</div>
