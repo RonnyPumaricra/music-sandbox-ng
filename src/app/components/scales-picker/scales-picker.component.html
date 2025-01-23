@@ -24,36 +24,50 @@
   </div>
 </nav>
 
-<div class="key-editor">
-  <div class="left">
-    <h3>Root note</h3>
-    <span class="current-root-note">
-      C
-    </span>
-    <span class="pick-root">Pick</span>
+@if (activeKeyIndex() == -1) {
+  <div class="key-editor default">
+    <span>Choose a saved key</span>
   </div>
-  <div class="right">
-    <div class="dropdown-wrapper">
-      <h3>Scale</h3>
-      <select>
-        <option value="1">a very large opt</option>
-        <option value="2">b</option>
-      </select>
-
-      <div class="dropdown-info">3 extra notes</div>
+}
+@else {
+  <div class="key-editor">
+    <div class="left">
+      <h3>Root note</h3>
+      <span class="current-root-note">
+        {{ musicService.getNoteName(activeRootNote() ?? 0) }}
+      </span>
+      <span class="pick-root">Pick</span>
     </div>
-    <div class="dropdown-wrapper">
-      <h3>Mode</h3>
-      <select>
-        <option value="1">b</option>
-        <option value="2">c</option>
-      </select>
-      <div class="dropdown-info">2 modded notes</div>
+    <div class="right">
+      <div class="dropdown-wrapper">
+        <h3>Scale</h3>
+        <select [(ngModel)]="pickedScaleIndex" #scaleSelect (change)="pickedModeIndex = 0">
+          @for (scale of scaleOptions; track $index) {
+            <option [value]="$index">{{ scale }}</option>
+          }
+        </select>
+  
+        <div class="dropdown-info">3 extra notes</div>
+      </div>
+      <div class="dropdown-wrapper">
+        <h3>Mode</h3>
+        <select [(ngModel)]="pickedModeIndex">
+          @for (mode of musicService.scales.at(pickedScaleIndex)?.modes; track $index) {
+            @if (mode != null) {
+              <option [value]="$index">{{ mode }}</option>
+            }
+          }
+        </select>
+        <div class="dropdown-info">2 modded notes</div>
+      </div>
+  
+      
     </div>
-
-    
+    <div class="bottom">
+      <button
+        class="save-key"
+        (click)="updateKey(0, pickedScaleIndex, pickedModeIndex, activeKeyIndex())"
+      >Apply</button>
+    </div>
   </div>
-  <div class="bottom">
-    <button class="save-key">Apply</button>
-  </div>
-</div>
+}
