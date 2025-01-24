@@ -8,6 +8,8 @@ import { PenOutlineComponent } from "../../svg/pen-outline/pen-outline.component
 import { MusicService } from '../../services/music.service';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { ScaleEditorComponent } from '../scale-editor/scale-editor.component';
+import { StoredKey } from '../../interfaces/stored-key';
 
 @Component({
   selector: 'app-scales-picker',
@@ -16,54 +18,36 @@ import { JsonPipe } from '@angular/common';
     ThreeDotsComponent,
     PlusComponent,
     CrossComponent,
-    PenOutlineComponent,
+    ScaleEditorComponent,
     FormsModule,
-    JsonPipe
 ],
   templateUrl: './scales-picker.component.html',
   styleUrl: './scales-picker.component.css'
 })
-export class ScalesPickerComponent implements OnInit {
+export class ScalesPickerComponent {
   scalesService = inject(ScalesService);
   storeService = inject(StoreService);
   musicService = inject(MusicService);
 
-  // chosenScale = this.scalesService.chosenScale;
-  // chosenScaleIndex = this.scalesService.chosenScaleIndex;
-  // chosenScaleName = computed(() => this.chosenScale().leadingKey ?? this.chosenScale().modes[this.scalesService.chosenModeIndex()]);
-  // chosenModeName = this.scalesService.chosenModeName;
-  // scaleRoot = this.scalesService.rootNoteName;
-
-  // nextScale = () => this.scalesService.updateScale(1);
-  // prevScale = () => this.scalesService.updateScale(-1);
-
-  // nextMode = () => this.scalesService.updateMode(1);
-  // prevMode = () => this.scalesService.updateMode(-1);
-
   storedKeys = this.storeService.storedKeys;
   activeKeyIndex = signal(-1);
 
-  addKey(
-    rootNoteIndex: number,
-    scaleIndex: number,
-    modeIndex: number
-  ) {
+  addKey() {
     const stKeys = this.storedKeys();
-    stKeys.push({rootNoteIndex, scaleIndex, modeIndex});
+    stKeys.push({
+      rootNoteIndex: 0,
+      scaleIndex: 0,
+      modeIndex: 0,
+    });
     this.storedKeys.set(stKeys);
   }
 
   updateKey(
-    rootNoteIndex: number,
-    scaleIndex: number,
-    modeIndex: number,
+    keyData: StoredKey,
     keyIndex: number
   ) {
     const stKeys = this.storedKeys();
-    console.log(stKeys);
-    
-    stKeys[keyIndex] = {rootNoteIndex, scaleIndex, modeIndex};
-    console.log(stKeys);
+    stKeys[keyIndex] = keyData;
 
     this.storedKeys.set(stKeys);
   }
@@ -79,20 +63,6 @@ export class ScalesPickerComponent implements OnInit {
     this.activeKeyIndex.set(-1);
   }
 
-  activeKey = computed(() => this.storedKeys().at(this.activeKeyIndex()));
-  activeRootNote = computed(() => this.activeKey()?.rootNoteIndex);
-  activeScale = computed(() => this.activeKey()?.scaleIndex);
-  activeMode = computed(() => this.activeKey()?.modeIndex);
-
-  pickedScaleIndex = 0;
-  pickedModeIndex = 0;
-
-  scaleOptions = this.musicService.scales.map(scale => {
-    return scale.leadingKey ?? scale.modes[0] as string
-  });
-
-  modeOptions = this.musicService.scales[this.pickedScaleIndex];
-
-  ngOnInit(): void {
-  }
+  /* at() doesn't return undefined on negative index  */
+  activeKey = computed(() => this.storedKeys()[this.activeKeyIndex()] as StoredKey | undefined);
 }
