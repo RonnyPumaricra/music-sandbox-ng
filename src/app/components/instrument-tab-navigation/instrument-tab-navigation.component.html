@@ -1,0 +1,5 @@
+@for (ins of storeService.instruments; track $index) {
+  <a [routerLink]="'/' + ins.name" [routerLinkActive]="'active-link'">
+    {{ ins.name }}
+  </a>
+}
