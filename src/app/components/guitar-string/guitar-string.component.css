@@ -25,7 +25,7 @@
 }
 
 .note.note-in-key {
-  background: #ccc;
+  background: var(--mono-800);
 }
 
 .note.highlighted {

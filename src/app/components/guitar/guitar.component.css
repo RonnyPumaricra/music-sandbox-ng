@@ -1,5 +1,5 @@
 .wrapper {
-  border: 2px solid black;
+  border: 2px solid white;
   --fret-size: 4.5rem;
   width: min-content;
 }
@@ -7,6 +7,7 @@
 :host {
   display: block;
   padding-left: 4rem;
+  padding-block: 2rem;
   isolation: isolate;
 }
 

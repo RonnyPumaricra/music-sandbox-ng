@@ -3,7 +3,7 @@
   height: 2.5rem;
 }
 :host(:not(:last-of-type)) {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
 }
 
 .fret-space {
@@ -14,12 +14,12 @@
 }
 
 .fret-space:not(:last-of-type) {
-  border-right: 1px solid black;
+  border-right: 1px solid white;
 }
 
 .fret-space.deco .deco {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  background: #aaa;
+  background: var(--mono-500);
 }
