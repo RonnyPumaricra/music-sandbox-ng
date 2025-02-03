@@ -108,6 +108,16 @@ export class MusicService {
     return this.arrayService.valueInRange(noteIndex, this.chromaticNotes);
   }
 
+  /* Doesn't consider mode */
+  computeHighlightedNotes(rootNoteIndex: number, scaleIndex: number, modeIndex: number): number[] {
+    const chosenScale = this.scales[scaleIndex].distribution;
+
+    const modeStartingNote = chosenScale[modeIndex];
+    const chosenKey = chosenScale.map(pitchless => (pitchless - modeStartingNote + 12) % 12);
+
+    return chosenKey.map((pitchless) => (pitchless + rootNoteIndex) % 12);
+  }
+
 }
 
 

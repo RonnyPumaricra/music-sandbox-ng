@@ -17,7 +17,7 @@
 
   @switch (musicService.activePicker()) {
     @case (0) {
-      <app-scales-picker></app-scales-picker>
+      <app-scales-picker (changeHighlightedNotes)="updateHighlightedNotes($event)"></app-scales-picker>
     }
     @case (1) {
       <app-chords-picker></app-chords-picker>

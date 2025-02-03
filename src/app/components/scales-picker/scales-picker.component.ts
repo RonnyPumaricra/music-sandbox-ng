@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, OnInit, output, signal } from '@angular/core';
 import { ScalesService } from '../../services/scales.service';
 import { ThreeDotsComponent } from "../../svg/three-dots/three-dots.component";
 import { PlusComponent } from "../../svg/plus/plus.component";
@@ -32,8 +32,10 @@ export class ScalesPickerComponent {
   storedKeys = this.storeService.storedKeys;
   activeKeyIndex = signal(-1);
 
+  changeHighlightedNotes = output<number[]>();
+
   addKey() {
-    const stKeys = this.storedKeys();
+    const stKeys = [...this.storedKeys()];
     stKeys.push({
       rootNoteIndex: 0,
       scaleIndex: 0,
@@ -46,7 +48,7 @@ export class ScalesPickerComponent {
     keyData: StoredKey,
     keyIndex: number
   ) {
-    const stKeys = this.storedKeys();
+    const stKeys = [...this.storedKeys()];
     stKeys[keyIndex] = keyData;
 
     this.storedKeys.set(stKeys);
@@ -64,5 +66,28 @@ export class ScalesPickerComponent {
   }
 
   /* at() doesn't return undefined on negative index  */
-  activeKey = computed(() => this.storedKeys()[this.activeKeyIndex()] as StoredKey | undefined);
+  activeKey = computed(() => [...this.storedKeys()][this.activeKeyIndex()] as StoredKey | undefined);
+
+  constructor() {
+    effect(() => {
+      let activeKey = this.activeKey();
+      if (activeKey == undefined) {
+        this.changeHighlightedNotes.emit([]);
+        return;
+      };
+      // this.storeService.setHighlightedPitchlessNotes(this.musicService.computeHighlightedNotes(activeKey.rootNoteIndex, activeKey.scaleIndex));
+      this.changeHighlightedNotes.emit(this.musicService.computeHighlightedNotes(
+        activeKey.rootNoteIndex,
+        activeKey.scaleIndex,
+        activeKey.modeIndex
+      ));
+    });
+
+    // effect(() => {
+    //   let storedKeys = this.storedKeys();
+    //   console.log("storedKeys changed");
+    //   console.table(storedKeys);
+    // })
+  }
+  
 }
