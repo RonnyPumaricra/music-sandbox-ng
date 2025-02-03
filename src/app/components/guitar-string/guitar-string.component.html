@@ -3,12 +3,19 @@
     
     <div
       class="note"
+      [class.highlighted]="isNoteHighlighted(i)"
+      [class.note-in-key]="isNoteHighlighted(i)"
+      (click)="guitarService.set3PerString(stringIndex(), i)"
+    >
+      {{ musicService.getNoteName(i) }}
+    </div>
+    <!-- <div
+      class="note"
       [class.highlighted]="guitarService.isNoteHighlighted(i, stringIndex())"
       [class.note-in-key]="guitarService.isNoteFromScale(i)"
       (click)="guitarService.set3PerString(stringIndex(), i)"
     >
-      <!-- {{ i }} -->
       {{ musicService.getNoteName(i) }}
-    </div>
+    </div> -->
   </div>
 }

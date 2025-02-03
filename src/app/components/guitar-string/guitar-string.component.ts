@@ -19,5 +19,10 @@ export class GuitarStringComponent {
   
   startingNoteIndex = input(0);
   stringIndex = input.required<number>();
+  highlightedPitchlessNotes = input<number[]>();
   
+  isNoteHighlighted(guitarNote: number) {
+    return this.highlightedPitchlessNotes()?.some(note => note == guitarNote % 12) ?? false;
+  }
+
 }

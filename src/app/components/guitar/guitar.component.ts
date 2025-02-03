@@ -1,14 +1,16 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { GuitarStringSpaceComponent } from "../guitar-string-space/guitar-string-space.component";
 import { GuitarStringComponent } from "../guitar-string/guitar-string.component";
 import { GuitarService } from '../../services/guitar.service';
-import { ScalesService } from '../../services/scales.service';
 import { MusicService } from '../../services/music.service';
 
 @Component({
   selector: 'app-guitar',
   standalone: true,
-  imports: [GuitarStringSpaceComponent, GuitarStringComponent],
+  imports: [
+    GuitarStringSpaceComponent,
+    GuitarStringComponent,
+  ],
   templateUrl: './guitar.component.html',
   styleUrl: './guitar.component.css'
 })
@@ -16,12 +18,15 @@ export class GuitarComponent {
   musicService = inject(MusicService);
   guitarService = inject(GuitarService);
 
+  highlightedPitchlessNotes = input<number[]>();
+
   tuningNotes = computed(() => this.guitarService.tuningNotes().reverse());
 
-  renderListForScales = computed(() => {
+  openStringNotes = computed(() => {
 
     const tuningNotes = this.guitarService.tuningNotes();
 
+    /* Pitchless is not being used */
     const renderList: {pitchlessNote: number, guitarNote: number}[] = [];
     /* Turn [6, 11, 3] to [6, 11, 14] */
     for (let i = 0; i < tuningNotes.length; i++) {
@@ -52,7 +57,7 @@ export class GuitarComponent {
     return renderList.reverse();
   });
 
-  renderList = computed(() => this.renderListForScales());
+  renderList = computed(() => this.openStringNotes());
   // renderList = computed(() => this.musicService.activePicker() == 0 ? this.renderListForScales() : []);
 
 
