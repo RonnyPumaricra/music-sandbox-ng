@@ -1,18 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { ScalesPickerComponent } from "./components/scales-picker/scales-picker.component";
-import { ChordsPickerComponent } from "./components/chords-picker/chords-picker.component";
-import { PianoComponent } from "./components/piano/piano.component";
-import { GuitarComponent } from "./components/guitar/guitar.component";
-import { MusicService } from './services/music.service';
+import { Component, inject, signal } from '@angular/core';
 import { PickerWrapperComponent } from './components/picker-wrapper/picker-wrapper.component';
 import { InstrumentTabNavigationComponent } from "./components/instrument-tab-navigation/instrument-tab-navigation.component";
+import { InstrumentDisplayComponent } from "./components/instrument-display/instrument-display.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     PickerWrapperComponent,
-    InstrumentTabNavigationComponent
+    InstrumentTabNavigationComponent,
+    RouterOutlet,
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
