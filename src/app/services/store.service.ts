@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, Type } from '@angular/core';
 import { StoredKey } from '../interfaces/stored-key';
 import { GuitarComponent } from '../components/guitar/guitar.component';
 import { PianoComponent } from '../components/piano/piano.component';
@@ -16,7 +16,7 @@ export class StoreService {
     }
   ]);
 
-  instruments = [
+  instruments: {name: string, component: Type<unknown>}[] = [
     {
       name: "Guitar",
       component: GuitarComponent,
@@ -26,4 +26,10 @@ export class StoreService {
       component: PianoComponent,
     }
   ];
+
+  highlightedPitchlessNotes = signal<number[]>([]);
+
+  setHighlightedPitchlessNotes(value: number[]) {
+    this.highlightedPitchlessNotes.set(value);
+  }
 }
