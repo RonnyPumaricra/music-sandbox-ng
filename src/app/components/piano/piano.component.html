@@ -4,7 +4,6 @@
     @if (musicService.isWhiteNote(noteIndex)) {
       <div class="white key" [class.highlighted]="isNoteHighlighted(noteIndex)"
         [title]="noteIndex"
-        (click)="setRootNote(noteIndex)"
       >
         <div class="note-name">
           {{ musicService.getNoteName(noteIndex) }}
@@ -15,7 +14,6 @@
       <div class="black key"
       [class.highlighted]="isNoteHighlighted(noteIndex)"
       [title]="noteIndex"
-      (click)="setRootNote(noteIndex)"
       ></div>
     }
   }
