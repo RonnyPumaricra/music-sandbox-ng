@@ -2,7 +2,7 @@
 <div class="piano">
   @for (noteIndex of pianoRange(); track $index) {
     @if (musicService.isWhiteNote(noteIndex)) {
-      <div class="white key" [class.highlighted]="pianoService.isNoteHighlighted(noteIndex)"
+      <div class="white key" [class.highlighted]="isNoteHighlighted(noteIndex)"
         [title]="noteIndex"
         (click)="setRootNote(noteIndex)"
       >
@@ -13,7 +13,7 @@
       </div>
     } @else {
       <div class="black key"
-      [class.highlighted]="pianoService.isNoteHighlighted(noteIndex)"
+      [class.highlighted]="isNoteHighlighted(noteIndex)"
       [title]="noteIndex"
       (click)="setRootNote(noteIndex)"
       ></div>

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { ArrayService } from '../../services/array.service';
 import { ScalesService } from '../../services/scales.service';
@@ -20,9 +20,11 @@ export class PianoComponent {
   chordsService = inject(ChordsService);
   pianoService = inject(PianoService);
 
+  highlightedPitchlessNotes = input<number[]>([]);
+
   pianoRootNote = () => this.musicService.activePicker() == 0 ? this.scalesService.rootNoteIndex : this.chordsService.rootNoteIndex;
   // pianoRootNote = computed(() => this.musicService.activePicker() == 0 ? this.scalesService.rootNoteIndex() : this.chordsService.rootNoteIndex());
-  highlightedNotes = this.pianoService.highlightedNotes;
+  // highlightedNotes = this.pianoService.highlightedNotes;
 
   // pianoRange = computed(() => this.arrayService.range(
   //   this.pianoRootNote() - this.scalesService.chosenModeIndex() - 4,
@@ -39,4 +41,8 @@ export class PianoComponent {
     } else this.chordsService.setRootNote(pitchlessNote);
   }
   
+  isNoteHighlighted(pianoNote: number) {
+    return this.highlightedPitchlessNotes().some(note => note == pianoNote);
+  }
+
 }
