@@ -15,10 +15,8 @@ import { ChordsService } from '../../services/chords.service';
 export class PianoComponent {
 
   musicService = inject(MusicService);
+  pianoService = inject(PianoService);
   arrayService = inject(ArrayService);
-  // scalesService = inject(ScalesService);
-  // chordsService = inject(ChordsService);
-  // pianoService = inject(PianoService);
 
   highlightedPitchlessNotes = input<number[]>([]);
 
@@ -29,12 +27,6 @@ export class PianoComponent {
     this.pianoRootNote() - 4,
     this.pianoRootNote() + 12 + 4
   ));
-
-  // setRootNote(pitchlessNote: number) {
-  //   if (this.musicService.activePicker() == 0) {
-  //     this.scalesService.setRootNote(pitchlessNote);
-  //   } else this.chordsService.setRootNote(pitchlessNote);
-  // }
   
   isNoteHighlighted(pianoNote: number) {
     return this.highlightedPitchlessNotes().some(note => note == pianoNote);

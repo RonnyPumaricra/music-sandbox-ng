@@ -29,7 +29,4 @@ export class StoreService {
 
   highlightedPitchlessNotes = signal<number[]>([]);
 
-  setHighlightedPitchlessNotes(value: number[]) {
-    this.highlightedPitchlessNotes.set(value);
-  }
 }

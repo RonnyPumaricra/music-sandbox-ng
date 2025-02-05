@@ -94,19 +94,14 @@ export class MusicService {
   ]
 
 
-  isWhiteNote(noteIndex: number) {
-    // return this.arrayService.valueInRange(noteIndex, [0,2,4,5,7,9,11]);
-    let indexInRange = this.arrayService.indexInRange(noteIndex, 12);
-    return [0,2,4,5,7,9,11].some(i => i == indexInRange);
-    // return [0,2,4,5,7,9,11].some(i => {
-    //   // if (noteIndex >= 0) return i == noteIndex % 12
-    //   // else return i == (((noteIndex * -1) % 12) * -1 + 12) % 12;
-    // });
-  }
-
   getNoteName(noteIndex: number) {
     return this.arrayService.valueInRange(noteIndex, this.chromaticNotes);
   }
+
+  getModeName(scaleIndex: number, modeIndex: number) {
+    return this.scales[scaleIndex].modes[modeIndex];
+  }
+
 
   computeHighlightedNotes(rootNoteIndex: number, scaleIndex: number, modeIndex: number): number[] {
     const chosenScale = this.scales[scaleIndex].distribution;

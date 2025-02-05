@@ -2,13 +2,11 @@ import { Component, computed, effect, inject, Injector, viewChild, ViewContainer
 import { StoreService } from '../../services/store.service';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NgComponentOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-instrument-display',
   standalone: true,
   imports: [
-    NgComponentOutlet
   ],
   templateUrl: './instrument-display.component.html',
   styleUrl: './instrument-display.component.css'
@@ -27,9 +25,6 @@ export class InstrumentDisplayComponent {
     if (paramMap == undefined) return "";
     return paramMap.get("instrument") ?? ""
   });
-  // instrument = computed<{name: string, component: any} | null>(() => {
-  //   return 
-  // });
 
   
   loadInstrument(instrumentName: string) {
@@ -41,9 +36,6 @@ export class InstrumentDisplayComponent {
         const renderedInstrument = this.instrumentWrapper().createComponent(
           ins.component
         );
-        // effect(() => {
-        //   renderedInstrument.setInput("highlightedPitchlessNotes", this.storeService.highlightedPitchlessNotes());
-        // });
         
         renderedInstrument.setInput("highlightedPitchlessNotes", this.storeService.highlightedPitchlessNotes());
         
@@ -53,7 +45,6 @@ export class InstrumentDisplayComponent {
 
   constructor() {
     effect(() => {
-      
       this.loadInstrument(this.instrumentName());
     })
   }
