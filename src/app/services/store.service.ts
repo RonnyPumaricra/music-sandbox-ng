@@ -16,7 +16,7 @@ export class StoreService {
     }
   ]);
 
-  instruments: {name: string, component: Type<unknown>}[] = [
+  instruments: {name: string, component: Type<GuitarComponent | PianoComponent>}[] = [
     {
       name: "Guitar",
       component: GuitarComponent,

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { GuitarStringSpaceComponent } from "../guitar-string-space/guitar-string-space.component";
 import { GuitarStringComponent } from "../guitar-string/guitar-string.component";
 import { GuitarService } from '../../services/guitar.service';
@@ -17,6 +17,8 @@ export class GuitarComponent {
   guitarService = inject(GuitarService);
 
   highlightedPitchlessNotes = input<number[]>();
+
+  noteClick = output<number>();
 
   tuningNotes = computed(() => this.guitarService.tuningNotes());
 

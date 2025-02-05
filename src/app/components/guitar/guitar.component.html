@@ -7,7 +7,9 @@
       [startingNoteIndex]="tuningNote"
       [stringIndex]="$index"
       [highlightedPitchlessNotes]="highlightedPitchlessNotes()"
+      (noteClick)="noteClick.emit($event)"
     ></app-guitar-string>
+
     @if ($index != openStringNotes().length - 1) {
       <app-guitar-string-space [row]="$index"></app-guitar-string-space>
     }

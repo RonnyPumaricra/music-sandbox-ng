@@ -38,7 +38,10 @@ export class InstrumentDisplayComponent {
         );
         
         renderedInstrument.setInput("highlightedPitchlessNotes", this.storeService.highlightedPitchlessNotes());
-        
+        renderedInstrument.instance.noteClick.subscribe((ev) => {
+          // TODO
+          console.log("Note: %d", ev);
+        })
       }
     }
   }

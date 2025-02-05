@@ -1,21 +1,12 @@
-@for (i of arrayService.range(startingNoteIndex(), startingNoteIndex() + 13); track $index) {
+@for (noteIndex of arrayService.range(startingNoteIndex(), startingNoteIndex() + 13); track $index) {
   <div class="note-wrapper">
-    
     <div
       class="note"
-      [class.highlighted]="isNoteHighlighted(i)"
-      [class.note-in-key]="isNoteHighlighted(i)"
-      (click)="guitarService.set3PerString(stringIndex(), i)"
+      [class.highlighted]="isNoteHighlighted(noteIndex)"
+      [class.note-in-key]="isNoteHighlighted(noteIndex)"
+      (click)="noteClick.emit(noteIndex % 12)"
     >
-      {{ musicService.getNoteName(i) }}
+      {{ musicService.getNoteName(noteIndex) }}
     </div>
-    <!-- <div
-      class="note"
-      [class.highlighted]="guitarService.isNoteHighlighted(i, stringIndex())"
-      [class.note-in-key]="guitarService.isNoteFromScale(i)"
-      (click)="guitarService.set3PerString(stringIndex(), i)"
-    >
-      {{ musicService.getNoteName(i) }}
-    </div> -->
   </div>
 }

@@ -1,9 +1,7 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { MusicService } from '../../services/music.service';
 import { ArrayService } from '../../services/array.service';
-import { ScalesService } from '../../services/scales.service';
 import { PianoService } from '../../services/piano.service';
-import { ChordsService } from '../../services/chords.service';
 
 @Component({
   selector: 'app-piano',
@@ -20,7 +18,8 @@ export class PianoComponent {
 
   highlightedPitchlessNotes = input<number[]>([]);
 
-  // pianoRootNote = () => this.musicService.activePicker() == 0 ? this.scalesService.rootNoteIndex : this.chordsService.rootNoteIndex;
+  noteClick = output<number>();
+
   pianoRootNote = computed(() => this.highlightedPitchlessNotes().at(0) ?? 0);
     
   pianoRange = computed(() => this.arrayService.range(
