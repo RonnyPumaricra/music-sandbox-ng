@@ -1,13 +1,11 @@
-import { Component, computed, effect, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, output, signal } from '@angular/core';
 import { ScalesService } from '../../services/scales.service';
 import { ThreeDotsComponent } from "../../svg/three-dots/three-dots.component";
 import { PlusComponent } from "../../svg/plus/plus.component";
 import { StoreService } from '../../services/store.service';
 import { CrossComponent } from "../../svg/cross/cross.component";
-import { PenOutlineComponent } from "../../svg/pen-outline/pen-outline.component";
 import { MusicService } from '../../services/music.service';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 import { ScaleEditorComponent } from '../scale-editor/scale-editor.component';
 import { StoredKey } from '../../interfaces/stored-key';
 

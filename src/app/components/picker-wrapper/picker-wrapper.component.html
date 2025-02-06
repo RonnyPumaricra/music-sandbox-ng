@@ -2,9 +2,9 @@
   <nav>
   <!-- <nav [style]="{'--wrapper-component': musicService.activePicker()}"> -->
   @for (pickerOption of pickerOptions; track $index) {
-    @let yPos = $index - musicService.activePicker();
+    @let yPos = $index - storeService.activePicker();
     <span
-      (click)="musicService.activePicker.set($index)"
+      (click)="storeService.activePicker.set($index)"
       [style]="{'--y-pos': yPos}"
       [class.active]="yPos == 0"
       [class.top]="yPos < 0"
@@ -15,7 +15,7 @@
   <span (click)="musicService.activePicker.set(1)">Chords</span> -->
   </nav>
 
-  @switch (musicService.activePicker()) {
+  @switch (storeService.activePicker()) {
     @case (0) {
       <app-scales-picker (changeHighlightedNotes)="updateHighlightedNotes($event)"></app-scales-picker>
     }
