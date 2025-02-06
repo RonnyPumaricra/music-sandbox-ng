@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ArrayService } from './array.service';
+import { Chord } from '../interfaces/chord';
 
 @Injectable({
   providedIn: 'root'
@@ -68,31 +69,48 @@ export class MusicService {
     "B"
   ];
 
-  activePicker = signal(0);
-
   chords: Chord[] = [
     {
       name: "Major",
       distribution: [0, 4, 7],
-      abbr: root => root,
+      abbr: (root) => this.renderableChordAbbr`${root}`,
     },
     {
       name: "Minor",
       distribution: [0, 3, 7],
-      abbr: root => root + "m",
+      abbr: (root) => this.renderableChordAbbr`${root}m`
     },
     {
       name: "Diminished",
       distribution: [0, 3, 6],
-      abbr: root => root +  "dim",
+      abbr: (root) => this.renderableChordAbbr`${root}dim`
     },
     {
       name: "Augmented",
       distribution: [0, 4, 8],
-      abbr: root => root +  "+",
+      abbr: (root) => this.renderableChordAbbr`${root}+`
     },
   ]
 
+  renderableChordAbbr(strings: TemplateStringsArray, ...values: string[]): {str: string, isRoot: boolean}[] {
+    let output: {str: string, isRoot: boolean}[] = [];
+    for (let i = 0; i < values.length; i++) {
+      output.push({
+        str: strings[i],
+        isRoot: false,
+      });
+      output.push({
+        str: values[i],
+        isRoot: true,
+      });
+    }
+    output.push({
+      str: strings[strings.length - 1],
+      isRoot: false,
+    });
+
+    return output;
+  }
 
   getNoteName(noteIndex: number) {
     return this.arrayService.valueInRange(noteIndex, this.chromaticNotes);
@@ -116,11 +134,4 @@ export class MusicService {
     return chosenKey.map((pitchless) => (pitchless + rootNoteIndex) % 12);
   }
 
-}
-
-
-interface Chord {
-  name: string,
-  distribution: Array<number>,
-  abbr: (root: string) => string,
 }
