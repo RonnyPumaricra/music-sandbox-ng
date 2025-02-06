@@ -1,14 +1,76 @@
-<h2>Chords</h2>
+@let chord = activeChord();
+@let chordIndex = activeChordIndex();
+<div class="chosen-chord-wrapper">
+  <div class="empty-space"></div>
 
-<p>
-  <strong>{{ chordsService.rootNoteIndex() }}</strong>
-</p>
+  <div class="chosen-chord-name">
+    @if (chord != undefined) {
+      @for (el of getChordNameArray(chord.distanceFromRoot, chord.chordIndex); track $index) {
+        @if (el.isRoot) {
+          <span class="root">{{ el.str }}</span>
+        } @else { <span>{{el.str}}</span> }
+      }
+    }
+    @else {
+      - -
+    }
+  </div>
 
-<!-- <p>{{ chosenScaleName() }}</p> -->
-<p>{{ chosenChord() | json }}</p>
-<p>Chord: {{ chosenChord().abbr(chordsService.rootNoteName()) }}</p>
+  <div class="empty-space">
+    <div class="root-note-picker">
+      Root note: C
+    </div>
+    <label class="roman-checkbox-wrapper">
+      <input type="checkbox" name="" id="">
+      <p>Roman notation</p>
+    </label>
+  </div>
 
+</div>
 
-<!-- <p>#{{ chosenScaleIndex() }}</p> -->
-<button (click)="prevChord()">Prev chord</button>
-<button (click)="nextChord()">Next chord</button>
+<div class="right-wrapper">
+<div class="chord-options">
+  <h3>Chord options</h3>
+
+  <div class="select-wrapper">
+    <h4>Chord</h4>
+    <select class="all-chords">
+      <option value="0">Minor chord</option>
+      <option value="1">Major chord</option>
+    </select>
+  </div>
+
+  <div class="select-wrapper">
+    <h4>4th note</h4>
+    <select class="note-4th">
+      <option value="0">Minor 7th</option>
+      <option value="0">Major 7th</option>
+      <option value="0">Diminished 7th</option>
+    </select>
+  </div>
+</div>
+
+<div class="stored-chords">
+  <h3>Stored chords</h3>
+  <!-- {{ chordIndex }} -->
+
+  <div class="stored-chords-wrapper">
+      @for (storedChord of storeService.storedChords(); track storedChord) {
+        <div class="stored-chord"
+          [class.active]="chordIndex == $index"
+          (click)="activeChordIndex.set($index)"
+        >
+          <div class="delete-chord"
+            (click)="deleteStoredChord($index);$event.stopPropagation()"
+          >
+            <app-cross></app-cross>
+          </div>
+          {{ getChordAbbreviation(storedChord.distanceFromRoot, storedChord.chordIndex) }}
+        </div>
+      }
+      <div class="add-chord" (click)="addStoredChord()">
+        +
+      </div>
+  </div>
+</div>
+</div>

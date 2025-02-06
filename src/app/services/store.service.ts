@@ -2,6 +2,7 @@ import { Injectable, signal, Type } from '@angular/core';
 import { StoredKey } from '../interfaces/stored-key';
 import { GuitarComponent } from '../components/guitar/guitar.component';
 import { PianoComponent } from '../components/piano/piano.component';
+import { StoredChord } from '../interfaces/stored-chord';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,13 @@ export class StoreService {
     }
   ]);
 
+  storedChords = signal<StoredChord[]>([
+    {
+      chordIndex: 0,
+      distanceFromRoot: 0,
+    }
+  ]);
+
   instruments: {name: string, component: Type<GuitarComponent | PianoComponent>}[] = [
     {
       name: "Guitar",
@@ -26,6 +34,8 @@ export class StoreService {
       component: PianoComponent,
     }
   ];
+
+  activePicker = signal(1);
 
   highlightedPitchlessNotes = signal<number[]>([]);
 
