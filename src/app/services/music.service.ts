@@ -90,6 +90,42 @@ export class MusicService {
       distribution: [0, 4, 8],
       abbr: (root) => this.renderableChordAbbr`${root}+`
     },
+    {
+      name: "Major 7th",
+      distribution: [0, 4, 7, 11],
+      abbr: (root) => this.renderableChordAbbr`${root}maj7`
+    },
+    // dominant 7th
+    {
+      name: "Dominant 7th",
+      distribution: [0, 4, 7, 10],
+      abbr: (root) => this.renderableChordAbbr`${root}7`
+    },
+    {
+      name: "Minor 7th",
+      distribution: [0, 3, 7, 10],
+      abbr: (root) => this.renderableChordAbbr`${root}m7`
+    },
+    {
+      name: "Minor Major 7th",
+      distribution: [0, 3, 7, 11],
+      abbr: (root) => this.renderableChordAbbr`${root}m(maj7)`
+    },
+    {
+      name: "Diminished 7th",
+      distribution: [0, 3, 6, 9],
+      abbr: (root) => this.renderableChordAbbr`${root}dim7`
+    },
+    {
+      name: "Half Diminished 7th",
+      distribution: [0, 3, 6, 10],
+      abbr: (root) => this.renderableChordAbbr`${root}m7b5`
+    },
+    {
+      name: "Augmented 7th",
+      distribution: [0, 4, 8, 10],
+      abbr: (root) => this.renderableChordAbbr`${root}+7`
+    },
   ]
 
   renderableChordAbbr(strings: TemplateStringsArray, ...values: string[]): {str: string, isRoot: boolean}[] {
