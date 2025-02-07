@@ -17,7 +17,7 @@ import { StoredKey } from '../../interfaces/stored-key';
     PlusComponent,
     CrossComponent,
     ScaleEditorComponent,
-    FormsModule,
+    // FormsModule,
 ],
   templateUrl: './scales-picker.component.html',
   styleUrl: './scales-picker.component.css'
@@ -74,7 +74,7 @@ export class ScalesPickerComponent {
         return;
       };
       // this.storeService.setHighlightedPitchlessNotes(this.musicService.computeHighlightedNotes(activeKey.rootNoteIndex, activeKey.scaleIndex));
-      this.changeHighlightedNotes.emit(this.musicService.computeHighlightedNotes(
+      this.changeHighlightedNotes.emit(this.musicService.computeHighlightedScaleNotes(
         activeKey.rootNoteIndex,
         activeKey.scaleIndex,
         activeKey.modeIndex

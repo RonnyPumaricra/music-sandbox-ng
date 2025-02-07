@@ -157,7 +157,7 @@ export class MusicService {
   }
 
 
-  computeHighlightedNotes(rootNoteIndex: number, scaleIndex: number, modeIndex: number): number[] {
+  computeHighlightedScaleNotes(rootNoteIndex: number, scaleIndex: number, modeIndex: number): number[] {
     const chosenScale = this.scales[scaleIndex].distribution;
 
     const modeStartingNote = chosenScale[modeIndex];
@@ -168,6 +168,12 @@ export class MusicService {
     chosenKey.push(...aux);
 
     return chosenKey.map((pitchless) => (pitchless + rootNoteIndex) % 12);
+  }
+
+  computeHighlightedChordNotes(rootNoteIndex: number, chordIndex: number) {
+    const chosenChordDist = this.chords[chordIndex].distribution;
+
+    return chosenChordDist.map(pitchless => (pitchless + rootNoteIndex) % 12);
   }
 
 }
