@@ -20,7 +20,7 @@
       <app-scales-picker (changeHighlightedNotes)="updateHighlightedNotes($event)"></app-scales-picker>
     }
     @case (1) {
-      <app-chords-picker></app-chords-picker>
+      <app-chords-picker (changeHighlightedNotes)="updateHighlightedNotes($event)"></app-chords-picker>
     }
   }
 </header>

@@ -6,9 +6,7 @@
   <div class="chosen-chord-name">
     @if (chord != undefined) {
       @for (el of getChordNameArray(chord.distanceFromRoot, chord.chordIndex); track $index) {
-        @if (el.isRoot) {
-          <span class="root">{{ el.str }}</span>
-        } @else { <span>{{el.str}}</span> }
+        <span [class.root]="el.isRoot">{{ el.str }}</span>
       }
     }
     @else {
@@ -18,7 +16,7 @@
 
   <div class="empty-space">
     <div class="root-note-picker">
-      Root note: C
+      Root note: {{ chord?.distanceFromRoot ??  "- -" }}
     </div>
     <label class="roman-checkbox-wrapper">
       <input type="checkbox" name="" id="">
@@ -34,20 +32,25 @@
 
   <div class="select-wrapper">
     <h4>Chord</h4>
-    <select class="all-chords">
-      <option value="0">Minor chord</option>
-      <option value="1">Major chord</option>
+    <select class="triad-chords" [(ngModel)]="chosenTriadIndex">
+      @for (triad of triadOptions; track triad.index) {
+        <option [value]="triad.index">{{ triad.chord.name }}</option>
+      }
     </select>
   </div>
 
   <div class="select-wrapper">
     <h4>4th note</h4>
-    <select class="note-4th">
-      <option value="0">Minor 7th</option>
-      <option value="0">Major 7th</option>
-      <option value="0">Diminished 7th</option>
+    <select class="note-4th" [(ngModel)]="chosenSeventhIndex" #seventhChordSelect>
+      <!-- Default triad -->
+      <option [value]="-1">None</option>
+      @for (seventh of getSeventhOptions(); track seventh.index) {
+        <option [value]="seventh.index">{{ seventh.chord.name }}</option>
+      }
     </select>
   </div>
+
+  <button (click)="updateChordIndex()">Change</button>
 </div>
 
 <div class="stored-chords">
