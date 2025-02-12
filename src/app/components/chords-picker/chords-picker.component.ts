@@ -37,7 +37,7 @@ export class ChordsPickerComponent {
   addStoredChord() {
     this.storeService.storedChords.update(storedChords => [
       ...storedChords,
-      {chordIndex: 1, distanceFromRoot: 0}
+      {chordIndex: 0, distanceFromRoot: 0}
     ]);
   }
 
