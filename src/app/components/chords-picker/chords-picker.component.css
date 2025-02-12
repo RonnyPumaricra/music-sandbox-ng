@@ -80,17 +80,13 @@ h4 {
   transition-duration: .2s;
 }
 
-.delete-chord {
+.pick-root-note, .delete-chord {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(100% + .75rem);
-
-  width: .75rem;
+  width: 1rem;
   margin: auto;
 
-  translate: 0 -1rem;
-  rotate: -45deg;
   pointer-events: none;
   opacity: 0;
   
@@ -98,14 +94,29 @@ h4 {
   transition-duration: .2s;
 }
 
+.pick-root-note {
+  bottom: calc(100% + .5rem);
+  translate: 0 1rem;
+  rotate: -45deg;
+}
+
+.delete-chord {
+  top: calc(100% + .5rem);
+
+  translate: 0 -1rem;
+  rotate: -45deg;
+  
+}
+
 .stored-chord.active {
   color: white;
   outline: 2px solid currentColor;
   outline-offset: -2px;
 }
-.stored-chord.active .delete-chord {
+.stored-chord.active :is(.delete-chord, .pick-root-note) {
   pointer-events: initial;
   opacity: 1;
   translate: 0 0;
   rotate: 0deg;
+  cursor: pointer;
 }

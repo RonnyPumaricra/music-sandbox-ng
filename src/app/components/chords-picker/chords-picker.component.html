@@ -63,6 +63,10 @@
           [class.active]="chordIndex == $index"
           (click)="activeChordIndex.set($index)"
         >
+          <div class="pick-root-note">
+            <svg-picker></svg-picker>
+          </div>
+        
           <div class="delete-chord"
             (click)="deleteStoredChord($index);$event.stopPropagation()"
           >

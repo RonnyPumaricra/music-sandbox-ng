@@ -4,6 +4,7 @@ import { MusicService } from '../../services/music.service';
 import { CrossComponent } from "../../svg/cross/cross.component";
 import { StoredChord } from '../../interfaces/stored-chord';
 import { FormsModule } from '@angular/forms';
+import { PickerComponent } from "../../svg/picker/picker.component";
 
 @Component({
   selector: 'app-chords-picker',
@@ -11,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CrossComponent,
     FormsModule,
+    PickerComponent
 ],
   templateUrl: './chords-picker.component.html',
   styleUrl: './chords-picker.component.css'
