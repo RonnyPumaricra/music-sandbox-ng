@@ -18,14 +18,25 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
+  cursor: pointer;
 }
-.note:not(.note-in-key) {
-  pointer-events: none;
-  opacity: 0;
+.note:not(.note-in-key.highlighted) {
+  /* opacity: 0; */
+  border: 1px solid var(--mono-800);
+  color: transparent;
+  transition-property: background, opacity, color;
+  transition-duration: .2s;
 }
 
 .note.note-in-key {
   background: var(--mono-800);
+}
+
+.note:not(.highlighted):hover {
+  background: var(--mono-800);
+  pointer-events: revert;
+  color: revert;
+  /* opacity: 1; */
 }
 
 .note.highlighted {
