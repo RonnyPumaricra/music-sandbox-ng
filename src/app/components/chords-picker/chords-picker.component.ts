@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, output, signal, untracked } from '@angular/core';
 import { StoreService } from '../../services/store.service';
 import { MusicService } from '../../services/music.service';
 import { CrossComponent } from "../../svg/cross/cross.component";
@@ -23,6 +23,10 @@ export class ChordsPickerComponent {
 
   changeHighlightedNotes = output<number[]>();
 
+  /* Would use an event for this */
+  pickedChordRoot = computed(() => this.storeService.pickedNote());
+  waitingForRoot = signal(false);
+
   activeChordIndex = signal(-1);
   /* Handles invalid index (-1) */
   activeChord = computed(() => this.storeService.storedChords()[this.activeChordIndex()] as StoredChord | undefined)
@@ -41,6 +45,28 @@ export class ChordsPickerComponent {
       ...storedChords,
       {chordIndex: 0, distanceFromRoot: 0}
     ]);
+  }
+
+  waitForRootNote() {
+    this.waitingForRoot.set(true);
+  }
+
+  /* Executed inside an effect() */
+  /* Pick note while this.waitingForRoot == true */
+  handlePickedChordRootChange(pickedRoot: number) {
+    console.log("Picked root: %s", pickedRoot);
+    if (untracked(this.waitingForRoot)) {
+      console.log("Picked root: %d", pickedRoot);
+      const stChords = [...untracked(this.storeService.storedChords)];
+      let activeChordIndex = untracked(this.activeChordIndex);
+      const changingChord = stChords[activeChordIndex];
+      stChords[activeChordIndex] = {
+        ...changingChord,
+        distanceFromRoot: pickedRoot,
+      };
+      this.storeService.storedChords.set(stChords);
+      this.waitingForRoot.set(false);
+    }
   }
 
   deleteStoredChord(removeIndex: number) {
@@ -70,11 +96,13 @@ export class ChordsPickerComponent {
   };
 
   updateChordIndex() {
+    let activeChordIndex = this.activeChordIndex();
     let newChordIndex = this.chosenSeventhIndex == -1 ? this.chosenTriadIndex : this.chosenSeventhIndex;
     const stChords = [...this.storeService.storedChords()];
-    stChords[this.activeChordIndex()] = {
+    const changingChord = stChords[activeChordIndex];
+    stChords[activeChordIndex] = {
       chordIndex: newChordIndex,
-      distanceFromRoot: 0,
+      distanceFromRoot: changingChord.distanceFromRoot,
     };
     this.storeService.storedChords.set(stChords);
   }
@@ -92,7 +120,14 @@ export class ChordsPickerComponent {
       ));
     });
 
-    
+    effect(() => {
+      let pickedRoot = this.pickedChordRoot();
+      if (pickedRoot == null) return;
+      this.handlePickedChordRootChange(pickedRoot);
+    },
+    {
+      allowSignalWrites: true,
+    });
   }
 
 }

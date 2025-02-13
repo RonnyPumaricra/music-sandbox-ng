@@ -99,6 +99,9 @@ h4 {
   translate: 0 1rem;
   rotate: -45deg;
 }
+.pick-root-note.waiting {
+  background: red;
+}
 
 .delete-chord {
   top: calc(100% + .5rem);

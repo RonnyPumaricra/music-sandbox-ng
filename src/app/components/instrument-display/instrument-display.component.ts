@@ -41,6 +41,7 @@ export class InstrumentDisplayComponent {
         renderedInstrument.instance.noteClick.subscribe((ev) => {
           // TODO
           console.log("Note: %d", ev);
+          this.storeService.pickedNote.set(ev);
         })
       }
     }
