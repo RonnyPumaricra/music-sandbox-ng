@@ -26,9 +26,21 @@ export class PianoComponent {
     this.pianoRootNote() - 4,
     this.pianoRootNote() + 12 + 4
   ));
+
+  transformedHighlightedNotes = computed(() => {
+    let highlightedNotes = [...this.highlightedPitchlessNotes()];
+    let prev = -1;
+    for (let i = 0; i < highlightedNotes.length; i++) {
+      while (highlightedNotes[i] < prev) {
+        highlightedNotes[i] += 12;
+      }
+      prev = highlightedNotes[i];
+    }
+    return highlightedNotes;
+  });
   
   isNoteHighlighted(pianoNote: number) {
-    return this.highlightedPitchlessNotes().some(note => note == pianoNote);
+    return this.transformedHighlightedNotes().some(note => note == pianoNote);
   }
 
 }
