@@ -82,6 +82,24 @@ svg-down-arrow-head {
   pointer-events: none;
 }
 
+.chord-options button {
+  grid-column-end: span 2;
+  margin-left: auto;
+  margin-right: auto;
+  padding: .5rem 2rem;
+  background: var(--mono-300);
+  color: white;
+  font-family: var(--serif);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  /* transition-property: background;
+  transition-duration: .2s; */
+}
+.chord-options button:hover {
+  background: var(--primary-400);
+}
+
 /* Stored chords */
 .stored-chords {
   display: grid;
