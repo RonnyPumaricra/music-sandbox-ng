@@ -24,7 +24,7 @@ export class ChordsPickerComponent {
   changeHighlightedNotes = output<number[]>();
 
   /* Would use an event for this */
-  pickedChordRoot = computed(() => this.storeService.pickedNote());
+  // pickedChordRoot = computed(() => this.storeService.pickedNote());
   waitingForRoot = signal(false);
 
   activeChordIndex = signal(-1);
@@ -49,24 +49,6 @@ export class ChordsPickerComponent {
 
   waitForRootNote() {
     this.waitingForRoot.set(true);
-  }
-
-  /* Executed inside an effect() */
-  /* Pick note while this.waitingForRoot == true */
-  handlePickedChordRootChange(pickedRoot: number) {
-    console.log("Picked root: %s", pickedRoot);
-    if (untracked(this.waitingForRoot)) {
-      console.log("Picked root: %d", pickedRoot);
-      const stChords = [...untracked(this.storeService.storedChords)];
-      let activeChordIndex = untracked(this.activeChordIndex);
-      const changingChord = stChords[activeChordIndex];
-      stChords[activeChordIndex] = {
-        ...changingChord,
-        distanceFromRoot: pickedRoot,
-      };
-      this.storeService.storedChords.set(stChords);
-      this.waitingForRoot.set(false);
-    }
   }
 
   deleteStoredChord(removeIndex: number) {
@@ -120,10 +102,21 @@ export class ChordsPickerComponent {
       ));
     });
 
+    /* Listening note clicks */
     effect(() => {
-      let pickedRoot = this.pickedChordRoot();
-      if (pickedRoot == null) return;
-      this.handlePickedChordRootChange(pickedRoot);
+      let pickedRoot = this.storeService.pickedNote();
+      if (untracked(this.waitingForRoot) == false) return;
+      console.log("Picked root: %d", pickedRoot);
+      const stChords = [...untracked(this.storeService.storedChords)];
+      let activeChordIndex = untracked(this.activeChordIndex);
+
+      const changingChord = stChords[activeChordIndex];
+      stChords[activeChordIndex] = {
+        distanceFromRoot: pickedRoot,
+        chordIndex: changingChord.chordIndex,
+      };
+      this.storeService.storedChords.set(stChords);
+      this.waitingForRoot.set(false);
     },
     {
       allowSignalWrites: true,

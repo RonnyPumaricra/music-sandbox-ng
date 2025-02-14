@@ -40,5 +40,5 @@ export class StoreService {
   highlightedPitchlessNotes = signal<number[]>([]);
 
   /* Picked by clicking, used for listening to changes */
-  pickedNote = signal<number | null>(null);
+  pickedNote = signal<number>(-1);
 }
