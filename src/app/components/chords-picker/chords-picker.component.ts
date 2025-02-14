@@ -5,6 +5,7 @@ import { CrossComponent } from "../../svg/cross/cross.component";
 import { StoredChord } from '../../interfaces/stored-chord';
 import { FormsModule } from '@angular/forms';
 import { PickerComponent } from "../../svg/picker/picker.component";
+import { DownArrowHeadComponent } from "../../svg/down-arrow-head/down-arrow-head.component";
 
 @Component({
   selector: 'app-chords-picker',
@@ -12,7 +13,8 @@ import { PickerComponent } from "../../svg/picker/picker.component";
   imports: [
     CrossComponent,
     FormsModule,
-    PickerComponent
+    PickerComponent,
+    DownArrowHeadComponent
 ],
   templateUrl: './chords-picker.component.html',
   styleUrl: './chords-picker.component.css'

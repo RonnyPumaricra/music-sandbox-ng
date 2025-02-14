@@ -50,6 +50,37 @@ h4 {
   grid-column-end: span 2;
 }
 
+.select-wrapper {
+  margin-top: 1rem;
+  position: relative;
+}
+
+select {
+  cursor: pointer;
+  line-height: 1.25;
+  padding-right: 1.5rem;
+  background: transparent;
+  appearance: none;
+  color: white;
+  border: none;
+  font-family: var(--sans-serif);
+}
+option {
+  background: initial;
+  color: initial;
+}
+
+svg-down-arrow-head {
+  position: absolute;
+  right: .25rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 1rem;
+  height: 1rem;
+  color: white;
+  pointer-events: none;
+}
 
 /* Stored chords */
 .stored-chords {
