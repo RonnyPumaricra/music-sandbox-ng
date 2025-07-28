@@ -31,5 +31,8 @@
   </div>
 }
 @else {
-  <app-scale-editor [key]="key" (keySubmit)="updateKey($event, activeKeyIndex())"></app-scale-editor>
+  <app-scale-editor
+    [key]="key"
+    (keySubmit)="updateKey($event, activeKeyIndex())"
+  ></app-scale-editor>
 }

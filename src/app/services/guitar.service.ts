@@ -5,7 +5,7 @@ import { computed, Injectable, signal } from '@angular/core';
 })
 export class GuitarService {
 
-  guitarTunings = [
+  static guitarTunings = [
     {
       name: "Standard",
       distribution: [0, 5, 10, 3, 7, 0],
@@ -13,12 +13,13 @@ export class GuitarService {
     {
       name: "Drop",
       distribution: [0, 7, 0, 5, 9, 2],
-    }
+    },
   ];
 
+  /* Default tuning */
   tuningIndex = signal(0);
   guitarRoot = signal(4);
-  tuning = computed(() => this.guitarTunings[this.tuningIndex()]);
-
+  
+  tuning = computed(() => GuitarService.guitarTunings[this.tuningIndex()]);
   tuningNotes = computed(() => this.tuning().distribution.map(el => (el + this.guitarRoot()) % 12));
 }
