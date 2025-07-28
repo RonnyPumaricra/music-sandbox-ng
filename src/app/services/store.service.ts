@@ -11,7 +11,6 @@ export class StoreService {
 
   storedKeys = signal<StoredKey[]>([
     {
-      modeIndex: 0,
       scaleIndex: 0,
       rootNoteIndex: 0,
     }
@@ -35,7 +34,7 @@ export class StoreService {
     }
   ];
 
-  activePicker = signal(1);
+  activePicker = signal(0);
 
   highlightedPitchlessNotes = signal<number[]>([]);
 

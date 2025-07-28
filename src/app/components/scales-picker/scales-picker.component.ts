@@ -37,7 +37,6 @@ export class ScalesPickerComponent {
     stKeys.push({
       rootNoteIndex: 0,
       scaleIndex: 0,
-      modeIndex: 0,
     });
     this.storedKeys.set(stKeys);
   }
@@ -74,10 +73,14 @@ export class ScalesPickerComponent {
         return;
       };
       // this.storeService.setHighlightedPitchlessNotes(this.musicService.computeHighlightedNotes(activeKey.rootNoteIndex, activeKey.scaleIndex));
-      this.changeHighlightedNotes.emit(this.musicService.computeHighlightedScaleNotes(
-        activeKey.rootNoteIndex,
-        activeKey.scaleIndex,
-        activeKey.modeIndex
+      // this.changeHighlightedNotes.emit(this.musicService.computeHighlightedScaleNotes(
+      //   activeKey.rootNoteIndex,
+      //   activeKey.scaleIndex,
+      //   activeKey.modeIndex
+      // ));
+      this.changeHighlightedNotes.emit(this.musicService.computeNotesFromRoot(
+        this.musicService.scales[activeKey.scaleIndex].notesInKey,
+        activeKey.rootNoteIndex
       ));
     });
 

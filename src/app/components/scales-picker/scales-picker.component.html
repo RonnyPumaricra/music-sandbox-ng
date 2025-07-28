@@ -8,7 +8,7 @@
       <span class="root-note">
         {{ musicService.getNoteName(key.rootNoteIndex) }}
       </span>
-      {{ musicService.getModeName(key.scaleIndex, key.modeIndex) }}
+      {{ musicService.getScaleName(key.scaleIndex) }}
       <app-three-dots></app-three-dots>
 
       <app-cross class="delete" (click)="deleteKey($index);$event.stopPropagation()"></app-cross>

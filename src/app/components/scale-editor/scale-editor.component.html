@@ -19,13 +19,13 @@
     </div>
     <div class="dropdown-wrapper">
       <h3>Mode</h3>
-      <select [(ngModel)]="pickedModeIndex">
+      <!-- <select [(ngModel)]="pickedModeIndex">
         @for (mode of musicService.scales.at(pickedScaleIndex)?.modes; track $index) {
           @if (mode != null) {
             <option [value]="$index">{{ mode }}</option>
           }
         }
-      </select>
+      </select> -->
       <div class="dropdown-info">2 modded notes</div>
     </div>
 
@@ -37,7 +37,6 @@
       (click)="keySubmit.emit({
         rootNoteIndex: 0,
         scaleIndex: + pickedScaleIndex,
-        modeIndex: + pickedModeIndex
       })"
     >Apply</button>
   </div>

@@ -98,9 +98,13 @@ export class ChordsPickerComponent {
         this.changeHighlightedNotes.emit([]);
         return;
       }
-      this.changeHighlightedNotes.emit(this.musicService.computeHighlightedChordNotes(
+      // this.changeHighlightedNotes.emit(this.musicService.computeHighlightedChordNotes(
+      //   activeChord.distanceFromRoot,
+      //   activeChord.chordIndex,
+      // ));
+      this.changeHighlightedNotes.emit(this.musicService.computeNotesFromRoot(
+        this.musicService.chords[activeChord.chordIndex].distribution,
         activeChord.distanceFromRoot,
-        activeChord.chordIndex,
       ));
     });
 
