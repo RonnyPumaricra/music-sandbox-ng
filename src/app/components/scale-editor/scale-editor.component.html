@@ -15,7 +15,7 @@
   <div class="right">
     <div class="dropdown-wrapper">
       <h3>Scale</h3>
-      <select [(ngModel)]="pickedScaleIndex" #scaleSelect (change)="pickedModeIndex = 0">
+      <select [(ngModel)]="pickedScaleIndex" #scaleSelect>
         @for (scale of scaleOptions; track $index) {
           <option [value]="$index">{{ scale }}</option>
         }
@@ -41,7 +41,7 @@
     <button
       class="save-key"
       (click)="keySubmit.emit({
-        rootNoteIndex: 0,
+        rootNoteIndex: key().rootNoteIndex,
         scaleIndex: + pickedScaleIndex,
       })"
     >Apply</button>

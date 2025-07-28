@@ -29,7 +29,6 @@ export class ScaleEditorComponent {
 
 
   pickedScaleIndex = 0;
-  pickedModeIndex = 0;
 
   scaleOptions = this.musicService.scales.map(scale => {
     return scale.name
