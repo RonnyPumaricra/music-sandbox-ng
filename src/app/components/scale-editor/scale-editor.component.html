@@ -4,7 +4,13 @@
     <span class="current-root-note">
       {{ noteName() }}
     </span>
-    <span class="pick-root">Pick</span>
+    <span class="pick-root">Pick
+      <svg-picker
+        (click)="waitForRootNote()"
+      ></svg-picker>
+    </span>
+    {{ storeService.pickedNote() }}
+    {{ waitingForRoot }}
   </div>
   <div class="right">
     <div class="dropdown-wrapper">
