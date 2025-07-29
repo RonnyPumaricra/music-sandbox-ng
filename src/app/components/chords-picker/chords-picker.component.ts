@@ -29,9 +29,9 @@ export class ChordsPickerComponent {
   // pickedChordRoot = computed(() => this.storeService.pickedNote());
   waitingForRoot = signal(false);
 
-  activeChordIndex = signal(-1);
+  activeChordIdx = signal(-1);
   /* Handles invalid index (-1) */
-  activeChord = computed(() => this.storeService.storedChords()[this.activeChordIndex()] as StoredChord | undefined)
+  activeChord = computed(() => this.storeService.storedChords()[this.activeChordIdx()] as StoredChord | undefined)
 
   getChordNameArray(root: number, chordIndex: number) {
     const chord = this.musicService.chords[chordIndex];
@@ -42,23 +42,14 @@ export class ChordsPickerComponent {
     return this.getChordNameArray(root, chordIndex).map(el => el.str).join("");
   }
 
-  addStoredChord() {
-    this.storeService.storedChords.update(storedChords => [
-      ...storedChords,
-      {chordIndex: 0, distanceFromRoot: 0}
-    ]);
-  }
 
   waitForRootNote() {
     this.waitingForRoot.set(true);
   }
 
   deleteStoredChord(removeIndex: number) {
-    this.storeService.storedChords.update(storedChords => {
-      storedChords.splice(removeIndex, 1);
-      return storedChords;
-    });
-    this.activeChordIndex.set(-1);
+    this.storeService.deleteChord(removeIndex);
+    this.activeChordIdx.set(-1);
   }
 
   chosenTriadIndex = 0;
@@ -80,15 +71,8 @@ export class ChordsPickerComponent {
   };
 
   updateChordIndex() {
-    let activeChordIndex = this.activeChordIndex();
     let newChordIndex = this.chosenSeventhIndex == -1 ? this.chosenTriadIndex : this.chosenSeventhIndex;
-    const stChords = [...this.storeService.storedChords()];
-    const changingChord = stChords[activeChordIndex];
-    stChords[activeChordIndex] = {
-      chordIndex: newChordIndex,
-      distanceFromRoot: changingChord.distanceFromRoot,
-    };
-    this.storeService.storedChords.set(stChords);
+    this.storeService.updateChordType(newChordIndex, this.activeChordIdx());
   }
 
   constructor() {
@@ -98,30 +82,20 @@ export class ChordsPickerComponent {
         this.changeHighlightedNotes.emit([]);
         return;
       }
-      // this.changeHighlightedNotes.emit(this.musicService.computeHighlightedChordNotes(
-      //   activeChord.distanceFromRoot,
-      //   activeChord.chordIndex,
-      // ));
-      this.changeHighlightedNotes.emit(this.musicService.computeNotesFromRoot(
-        this.musicService.chords[activeChord.chordIndex].distribution,
-        activeChord.distanceFromRoot,
-      ));
+      this.changeHighlightedNotes.emit(
+        this.musicService.computeNotesFromRoot(
+          this.musicService.chords[activeChord.chordIndex].distribution,
+          activeChord.distanceFromRoot,
+        )
+      );
     });
 
     /* Listening note clicks */
     effect(() => {
       let pickedRoot = this.storeService.pickedNote();
       if (untracked(this.waitingForRoot) == false) return;
-      console.log("Picked root: %d", pickedRoot);
-      const stChords = [...untracked(this.storeService.storedChords)];
-      let activeChordIndex = untracked(this.activeChordIndex);
-
-      const changingChord = stChords[activeChordIndex];
-      stChords[activeChordIndex] = {
-        distanceFromRoot: pickedRoot,
-        chordIndex: changingChord.chordIndex,
-      };
-      this.storeService.storedChords.set(stChords);
+      // console.log("Picked root: %d", pickedRoot);
+      this.storeService.updateChordRoot(pickedRoot, untracked(this.activeChordIdx));
       this.waitingForRoot.set(false);
     },
     {

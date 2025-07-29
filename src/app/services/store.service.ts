@@ -40,4 +40,33 @@ export class StoreService {
 
   /* Picked by clicking, used for listening to changes */
   pickedNote = signal<number>(-1);
+
+  createDefaultChord() {
+    this.storedChords.update(chords => [
+      ...chords,
+      {chordIndex: 0, distanceFromRoot: 0}
+    ])
+  }
+
+  updateChordType(chordIdx: number, idx: number) {
+    this.storedChords.update(chords => {
+      chords[idx].chordIndex = chordIdx;
+      return chords;
+    });
+  }
+
+  updateChordRoot(root: number, idx: number) {
+    this.storedChords.update(chords => {
+      chords[idx].distanceFromRoot = root;
+      return chords;
+    });
+  }
+
+  deleteChord(removeIndex: number) {
+    this.storedChords.update(storedChords => {
+      storedChords.splice(removeIndex, 1);
+      return storedChords;
+    });
+    // this.activeChordIndex.set(-1);
+  }
 }

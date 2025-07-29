@@ -1,5 +1,5 @@
 @let chord = activeChord();
-@let chordIndex = activeChordIndex();
+@let chordIndex = activeChordIdx();
 <div class="chosen-chord-wrapper">
   <div class="empty-space"></div>
 
@@ -68,7 +68,7 @@
       @for (storedChord of storeService.storedChords(); track storedChord) {
         <div class="stored-chord"
           [class.active]="chordIndex == $index"
-          (click)="activeChordIndex.set($index)"
+          (click)="activeChordIdx.set($index)"
         >
           <div class="pick-root-note"
             (click)="waitForRootNote();$event.stopPropagation()"
@@ -85,7 +85,7 @@
           {{ getChordAbbreviation(storedChord.distanceFromRoot, storedChord.chordIndex) }}
         </div>
       }
-      <div class="add-chord" (click)="addStoredChord()">
+      <div class="add-chord" (click)="storeService.createDefaultChord()">
         +
       </div>
   </div>
